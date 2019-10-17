@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="../padrao.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="centro">
+        <h:form id="form_Controle" class="splash-container">
+            <p:messages id="messages" closable="true">
+                <p:autoUpdate />
+            </p:messages>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-header text-center">Cadastro de Controle</h3>
+                    <p class="text-center">Por favor informe os dados do controle</p>
+                </div>
+                <div class="card-body">
+                </div>
+                <div class="form-group">
+                    <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'Macadress' obrigatório"
+                                  placeholder="Mac Adress" autocomplete="off" value="#{macC.mac.macadress}" />
+                </div>
+                <div class="form-group">
+                    <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'Leito' obrigatório" placeholder="Leito" value="#{macC.mac.leito}" />
+                </div>
+                <div class="form-group">
+                    <h:selectOneMenu id="quarto"   value="#{macC.porta.quarto}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
+                        <f:selectItem itemLabel="quarto" itemValue=""/>
+                        <f:selectItems value="#{macC.quartos}"  /> 
+                    </h:selectOneMenu>
+                </div>
+                <div class="form-group">
+                    <p:selectBooleanButton id="status" value="#{macC.mac.status}" rendered="#{macC.mac.macadress!=null}" 
+                                           onLabel="Ativo" offLabel="Inativo" onIcon="pi pi-check" offIcon="pi pi-times"  >
+                        <p:ajax  listener="#{macC.ativar}" />
+                    </p:selectBooleanButton>
+
+
+                </div>
+                <div class="form-group pt-2">
+                    <p:commandButton class="btn btn-block btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

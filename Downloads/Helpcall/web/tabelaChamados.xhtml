@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./padrao.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="centro">
+        <p:poll interval="3000"   
+                listener="#{chamadoC.chamadoAtivo()}" update="tables" /> 
+
+        <h:panelGroup id="tables">
+
+            <div class="dashboard-wrapper">
+                <div class="container-fluid dashboard-content">
+                    <!-- responsive table -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+
+                        <div class="card" style="width:100%;">
+                            <h5 class="card-header">Tabela de Chamados Ativos</h5>
+                            <div class="card-body">
+                                <div class="table-responsive ">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Quarto</th>
+                                                <th scope="col">Hora de Inicio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat value="#{chamadoC.listChamadoAtivo}" var="ativo">
+                                                <h:panelGroup>
+                                                    <tr>
+                                                        <td>#{ativo.quarto}</td>
+                                                        <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="HH:mm:ss" timeZone="GMT-3" /></h:outputLabel> </td>
+                                                    </tr>
+                                                </h:panelGroup>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end responsive table -->
+                    <!-- ============================================================== -->
+                </div>
+                <div class="container-fluid dashboard-content">
+                    <!-- responsive table -->
+                    <!-- ============================================================== -->
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="card" style="width:150%;">
+                            <h5 class="card-header">Tabela de Chamados</h5>
+                            <div class="card-body">
+                                <div class="table-responsive ">
+                                    <table class="table">
+                                        <thead>
+                                            <h:panelGroup>
+                                                <tr>
+                                                    <th scope="col">Quarto</th>
+                                                    <th scope="col">Leito</th>
+                                                    <th scope="col">Hora de Inicio</th>
+                                                    <th scope="col">Hora de Termino</th>
+                                                    <th scope="col">Data do chamado</th>
+                                                </tr>
+                                            </h:panelGroup>
+                                        </thead>
+                                        <tbody>
+                                            <ui:repeat value="#{chamadoC.listTodos}" var="ativo">
+                                                <tr>
+                                                    <th scope="row">#{ativo.MACidMAC.quarto.quarto}</th>
+                                                    <td>#{ativo.MACidMAC.leito}</td>
+                                                    <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3" /></h:outputLabel> </td>
+                                                    <td><h:outputLabel value="#{ativo.horaend}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3"/></h:outputLabel> </td>
+                                                    <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="dd-MM-YYYY" /></h:outputLabel> </td>
+                                                </tr>
+                                            </ui:repeat>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- end responsive table -->
+                    <!-- ============================================================== -->
+                </div>
+            </div>
+
+
+        </h:panelGroup>
+    </ui:define>
+
+</ui:composition>
