@@ -15,4 +15,5 @@ public class Mensagens {
     public static final String mensagemSucessoCadastro = "Cadastro efetuado com sucesso!";
     public static final String mensagemSalvamentoSucesso ="O item foi salvo com sucesso!";
     public static final String mensagemErroSalvamento = "Ocorreu um erro ao salvar!";
+    public static final String testeGit = "bora thaisa";
 }
