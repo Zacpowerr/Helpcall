@@ -8,13 +8,12 @@ package br.com.helpcall.control;
 import br.com.helpcall.dao.HibernateUtil;
 import br.com.helpcall.dao.UsuarioDao;
 import br.com.helpcall.daoImpl.UsuarioDaoImpl;
+import br.com.helpcall.mail.SendMail;
 import br.com.helpcall.model.Perfil;
 import br.com.helpcall.model.Usuario;
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -29,6 +28,10 @@ public class UsuarioControl implements Serializable {
     private UsuarioDao usuarioDao;
     private Session session;
     private List<Usuario> usuarios;
+    private SendMail sendMail;
+    private String receiver;
+    private String subject;
+    private String message;
 
     public UsuarioControl(Usuario usuario, UsuarioDao usuarioDao) {
         this.usuario = usuario;
@@ -62,6 +65,8 @@ public class UsuarioControl implements Serializable {
     }
 
     public String salvar() {
+        subject = "Cadastro no sistema Helpcall";
+        message = "Bem vindo ao sistema Helpcall";
         try {
             usuarioDao = new UsuarioDaoImpl();
             session = HibernateUtil.abreConexao();
@@ -69,6 +74,9 @@ public class UsuarioControl implements Serializable {
             usuario.setPerfil(perfil);
             usuario.setEnable(true);
             usuarioDao.salvarOuAlterar(usuario, session);
+            sendMail = new SendMail();
+            receiver = usuario.getLogin();
+            sendMail.sendEmail(receiver, subject, message);
             session.close();
 
         } catch (HibernateException e) {
@@ -102,8 +110,6 @@ public class UsuarioControl implements Serializable {
         }
 
     }
-    
-   
 
 //    public void verificarSenha() {
 //        FacesContext contexto = FacesContext.getCurrentInstance();
