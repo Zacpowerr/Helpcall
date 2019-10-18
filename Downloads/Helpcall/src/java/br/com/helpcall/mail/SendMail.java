@@ -16,15 +16,11 @@ public class SendMail {
 
     private SimpleEmail email;
 //    private final String subject = "Email do site Vila Mineira";
-    private final String user = "ebkempfer@gmail.com";
-    private final String password = "ckjkcratytlfekrm";
+    private final String user = "helpcallprojeto@gmail.com";
+    private final String password = "bqhwiorwqypnflyy";
 //    private final String receiver = "e_kempfer@hotmail.com";
-    private final String header = "Olá, Vila Mineira.\n"
-            + "Acabamos de captar mais um lead no seu site!\n"
-            + "confira os detalhes abaixo:\n";
-    private final String footer = "Não esqueça de catalogar este interessado no seu CRM.\n"
-            + "Boas vendas!\n\n"
-            + "Atensiosamente,\n equipe de Desenvolvimento Garapuvu.";
+    private final String header = "";
+    private final String footer = "Atensiosamente,\n equipe de Desenvolvimento Helpcall.";
 
     public SendMail() {
         email = new SimpleEmail();

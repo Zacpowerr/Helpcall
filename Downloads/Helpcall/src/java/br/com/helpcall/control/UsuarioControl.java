@@ -19,7 +19,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Aluno
+ * @author Thaisa
  */
 @ManagedBean(name = "usuarioC")
 public class UsuarioControl implements Serializable {
@@ -80,6 +80,9 @@ public class UsuarioControl implements Serializable {
             session.close();
 
         } catch (HibernateException e) {
+            message = "Erro ao cadastrar sistema Helpcall";
+            receiver = usuario.getLogin();
+            sendMail.sendEmail(receiver, subject, message);
             System.out.println("Erro ao cadastrar " + e.getMessage());
         }
         return "cadUsuario";
