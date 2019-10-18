@@ -17,12 +17,12 @@ import org.hibernate.Session;
  */
 public interface UsuarioDao extends BaseDao<Usuario, Long> {
 
-    public List<Usuario> listarPorLogin(String login, Session session) throws HibernateException;
-
     public List<Usuario> listarTodos(Session session) throws HibernateException;
 
     public List<Usuario> listarGestores(Session session) throws HibernateException;
 
     public Perfil carregarGestor(Session session) throws HibernateException;
+    
+    public Usuario pesquisarPorLogin (String login, Session session) throws HibernateException;
 
 }
