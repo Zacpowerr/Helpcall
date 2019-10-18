@@ -7,11 +7,9 @@
                 xmlns="http://www.w3.org/1999/xhtml" >
 
     <ui:define name="centro">           
-        
-        
-        <h:form class="splash-container">
-            <p:messages id="messages" closable="true">
-                <p:autoUpdate />
+        <h:form id="formCadUsu" class="splash-container">
+            <p:messages  closable="true">
+                <p:autoUpdate  />
             </p:messages>
             <div class="card">
                 <div class="card-header">
@@ -29,14 +27,10 @@
                 <div class="form-group">
                     <p:inputText  class="form-control form-control-lg" type="password" required="true" requiredMessage="Campo 'Confirmar senha' obrigatório" placeholder="Confirmar senha" />
                 </div>
-                <div class="form-group">
-                    <!--<p:inputText  class="form-control form-control-lg" id="pass2" type="perfil" required="true" requiredMessage="Campo 'Perfil' obrigatório" placeholder="Perfil" value="# {usuarioC.usuario.perfil.tipo}" />-->
-                </div>
                 <div class="form-group pt-2">
                     <p:commandButton class="btn btn-block btn-primary" value="Salvar"  ajax="false" action="#{usuarioC.salvar()}" />
                 </div>
             </div>
         </h:form>
     </ui:define>
-
 </ui:composition>

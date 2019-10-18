@@ -11,6 +11,7 @@ import br.com.helpcall.daoImpl.UsuarioDaoImpl;
 import br.com.helpcall.mail.SendMail;
 import br.com.helpcall.model.Perfil;
 import br.com.helpcall.model.Usuario;
+import br.com.helpcall.util.Mensagens;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -77,9 +78,11 @@ public class UsuarioControl implements Serializable {
             sendMail = new SendMail();
             receiver = usuario.getLogin();
             sendMail.sendEmail(receiver, subject, message);
+            Mensagens.salvoComSucesso();
             session.close();
 
         } catch (HibernateException e) {
+            Mensagens.erroCadastro();
             message = "Erro ao cadastrar sistema Helpcall";
             receiver = usuario.getLogin();
             sendMail.sendEmail(receiver, subject, message);
