@@ -26,14 +26,6 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario,Long> implements Usuario
         
     }
 
-   
-    @Override
-    public List<Usuario> listarPorLogin(String login, Session session) {
-        Query consulta = session.createQuery("from Usuario u where u.nome like :login");
-        consulta.setParameter("login", "%"+login+"%");
-        return consulta.list();
-    }
-
     @Override
     public Perfil carregarGestor(Session session) throws HibernateException {
         Query consulta = session.createQuery("from Perfil p where p.tipo = 'ROLE_GESTOR'");
@@ -53,5 +45,12 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario,Long> implements Usuario
        List<Usuario> gestores =  u.listarGestores(session);
         session.close();
     }
-    
+
+    @Override
+    public Usuario pesquisarPorLogin(String login, Session session) throws HibernateException {
+        Query consulta = session.createQuery("from Usuario where login = :login");
+        consulta.setParameter("login", login);
+        return (Usuario)consulta.uniqueResult();
+    }
+
 }
