@@ -16,17 +16,18 @@ import org.springframework.security.core.userdetails.User;
 @ManagedBean
 @ViewScoped
 public class UsuarioLogadoControl {
+
     private Usuario usuario;
     private Session session;
     private UsuarioDao usuarioDao;
-    
-    public void pegarUsuarioSpring(){
+
+    public void pegarUsuarioSpring() {
         String login = resgatarLoginSpring();
-        usuarioDao =new UsuarioDaoImpl();
-        try{
+        usuarioDao = new UsuarioDaoImpl();
+        try {
             session = HibernateUtil.abreConexao();
             usuario = usuarioDao.pesquisarPorLogin(login, session);
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             System.out.println("Erro ao pesquisar por Login");
         }
     }
@@ -34,13 +35,26 @@ public class UsuarioLogadoControl {
     private String resgatarLoginSpring() {
         String login = null;
         SecurityContext securityContext = SecurityContextHolder.getContext();
-        if(securityContext instanceof SecurityContext){
-            Authentication autenticado = securityContext.getAuthentication();
-            if(autenticado instanceof Authentication){
-                login = ((User)autenticado.getPrincipal()).getUsername();
+        try {
+            if (securityContext instanceof SecurityContext) {
+                Authentication autenticado = securityContext.getAuthentication();
+                if (autenticado instanceof Authentication) {
+                    login = ((User) autenticado.getPrincipal()).getUsername();
+                    pegarUsuarioSpring();
+                }
             }
+        } catch (Exception e) {
+            System.out.println("usuário ainda não logado " + e.getMessage());
         }
         return login;
     }
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 }
