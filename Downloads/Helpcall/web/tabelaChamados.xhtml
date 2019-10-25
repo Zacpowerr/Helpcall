@@ -8,7 +8,7 @@
 
     <ui:define name="centro">
         <p:poll interval="3000"   
-                listener="#{chamadoC.chamadoAtivo()}" update="tables" /> 
+                listener="#{chamadoC.listChamadoAtivo()}" update="tables" /> 
 
         <h:panelGroup id="tables">
 
@@ -26,6 +26,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">Quarto</th>
+                                                <th scope="col">Leito</th>
                                                 <th scope="col">Hora de Inicio</th>
                                             </tr>
                                         </thead>
@@ -33,7 +34,8 @@
                                             <ui:repeat value="#{chamadoC.listChamadoAtivo}" var="ativo">
                                                 <h:panelGroup>
                                                     <tr>
-                                                        <td>#{ativo.quarto}</td>
+                                                        <td>#{ativo.idQuarto}</td>
+                                                        <td>#{ativo.leito}</td>
                                                         <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="HH:mm:ss" timeZone="GMT-3" /></h:outputLabel> </td>
                                                     </tr>
                                                 </h:panelGroup>
@@ -71,7 +73,7 @@
                                         <tbody>
                                             <ui:repeat value="#{chamadoC.listTodos}" var="ativo">
                                                 <tr>
-                                                    <th scope="row">#{ativo.MACidMAC.quarto.quarto}</th>
+                                                    <th scope="row">#{ativo.MACidMAC.idQuarto.quarto}</th>
                                                     <td>#{ativo.MACidMAC.leito}</td>
                                                     <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3" /></h:outputLabel> </td>
                                                     <td><h:outputLabel value="#{ativo.horaend}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3"/></h:outputLabel> </td>

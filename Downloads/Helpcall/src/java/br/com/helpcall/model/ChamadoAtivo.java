@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ChamadoAtivo.findAll", query = "SELECT c FROM ChamadoAtivo c")
     , @NamedQuery(name = "ChamadoAtivo.findByStatus", query = "SELECT c FROM ChamadoAtivo c WHERE c.status = :status")
     , @NamedQuery(name = "ChamadoAtivo.findByHorainit", query = "SELECT c FROM ChamadoAtivo c WHERE c.horainit = :horainit")
-    , @NamedQuery(name = "ChamadoAtivo.findByMACidMAC", query = "SELECT c FROM ChamadoAtivo c WHERE c.mACidMAC = :mACidMAC")
+    , @NamedQuery(name = "ChamadoAtivo.findByLeito", query = "SELECT c FROM ChamadoAtivo c WHERE c.leito = :leito")
     , @NamedQuery(name = "ChamadoAtivo.findByIdQuarto", query = "SELECT c FROM ChamadoAtivo c WHERE c.idQuarto = :idQuarto")})
 public class ChamadoAtivo implements Serializable {
 
@@ -37,11 +37,11 @@ public class ChamadoAtivo implements Serializable {
     private String status;
     @Column(name = "horainit")
     @Temporal(TemporalType.TIMESTAMP)
-    @Id
     private Date horainit;
-    @Column(name = "MAC_idMAC")
-    private String mACidMAC;
+    @Column(name = "leito")
+    private String leito;
     @Column(name = "idQuarto")
+    @Id
     private String idQuarto;
 
     public ChamadoAtivo() {
@@ -63,12 +63,12 @@ public class ChamadoAtivo implements Serializable {
         this.horainit = horainit;
     }
 
-    public String getMACidMAC() {
-        return mACidMAC;
+    public String getLeito() {
+        return leito;
     }
 
-    public void setMACidMAC(String mACidMAC) {
-        this.mACidMAC = mACidMAC;
+    public void setLeito(String leito) {
+        this.leito = leito;
     }
 
     public String getIdQuarto() {
@@ -78,5 +78,5 @@ public class ChamadoAtivo implements Serializable {
     public void setIdQuarto(String idQuarto) {
         this.idQuarto = idQuarto;
     }
-
+    
 }
