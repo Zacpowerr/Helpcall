@@ -10,16 +10,13 @@
         <!--        <h:outputStylesheet name="./css/default.css"/>
                 <h:outputStylesheet name="./css/cssLayout.css"/>-->
         <title>HelpCall</title>
-        <!-- Bootstrap CSS -->
-        <h:outputStylesheet library="assets/libs/css" name="style.css" />
-        <h:outputStylesheet library="assets/vendor/fonts/fontawesome/css" name="fontawesome-all.css" />
-        <h:outputStylesheet library="assets/vendor/bootstrap/css" name="bootstrap.min.css" />
-        <h:outputStylesheet library="assets/vendor/fonts/circular-std" name="style.css" />
 
-        <!--<link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"/>-->
-        <!--<link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet"/>-->
-        <!--<link rel="stylesheet" href="resources/assets/libs/css/style.css"/>-->
-        <!--<link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css"/>-->
+        <!-- Bootstrap CSS -->
+        <ui:insert name="css"/>
+        <link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"/>
+        <link href="resources/assets/vendor/fonts/circular-std/style.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="resources/assets/libs/css/style.css"/>
+        <link rel="stylesheet" href="resources/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"/>
 
 
     </h:head>
@@ -47,12 +44,12 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                     <div class="nav-user-info">
-                                        <!--<h5 class="mb-0 text-white nav-user-name" >John Abraham </h5>-->
-                                        <h:outputText class="mb-0 text-white nav-user-name" value="#{usuarioLogadoControl.usuario.login}" ></h:outputText>
-                                        <span class="status"></span><span class="ml-2">Available</span>
+                                        <h5 class="mb-0 text-white nav-user-name" style="text-transform: capitalize" >
+                                            <h:outputText value="#{usuarioLogadoControl.usuario.login}"></h:outputText>
+                                        </h5>
                                     </div>
                                     <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>
+                                    <!--<a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>-->
                                     <a class="dropdown-item" href="HelpCall/logout"><i class="fas fa-power-off mr-2"></i>Sair</a>
                                 </div>
                             </li>
@@ -79,14 +76,14 @@
                                     Menu
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link active" href="tabelaChamados.xhtml" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-home"></i>Dashboard <span class="badge badge-success">6</span></a>
+                                    <a class="nav-link active" href="tabelaChamados.xhtml" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
                                     <div id="submenu-1" class="collapse submenu" style="">
                                         <ul class="nav flex-column">
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-2" aria-controls="submenu-1-2">Usuários</a>
                                                 <div id="submenu-1-2" class="collapse submenu" style="">
                                                     <ul class="nav flex-column">
-                                                        <h:form id="menuUsu">
+                                                        <h:form id="menuUsu" style="margin:0px;">
                                                             <li class="nav-item">
                                                                 <h:commandLink styleClass="nav-link" action="/gestor/cadUsuario" value="Cadastrar"/>
                                                             </li>
@@ -97,7 +94,7 @@
                                                     </ul>
                                                 </div>
                                             </li>
-                                            <h:form id="menuCad">
+                                            <h:form id="menuCad" style="margin:0px;">
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1-1" aria-controls="submenu-1-1">Controles</a>
                                                     <div id="submenu-1-1" class="collapse submenu" style="">
@@ -116,7 +113,7 @@
                                                 </li>
                                             </h:form>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">Relatorios</a>
+                                                <a class="nav-link" hrfasef="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10">Relatórios</a>
                                                 <div id="submenu-10" class="collapse submenu" style="">
                                                     <ul class="nav flex-column">
                                                         <li class="nav-item">
@@ -124,7 +121,7 @@
                                                             <div id="submenu-11" class="collapse submenu" style="">
                                                                 <ul class="nav flex-column">
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11-1" aria-controls="submenu-11-1">por Mes</a>
+                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11-1" aria-controls="submenu-11-1">Mensal</a>
                                                                         <div id="submenu-11-1" class="collapse submenu" style="">
                                                                             <ul class="nav flex-column">
                                                                                 <h:form id="gerarPDF">
@@ -168,7 +165,7 @@
                                                                         </div>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11-2" aria-controls="submenu-11-2">por Ano</a>
+                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11-2" aria-controls="submenu-11-2">Anual</a>
                                                                         <div id="submenu-11-2" class="collapse submenu" style="">
                                                                             <ul class="nav flex-column">
                                                                                 <li class="nav-item">
@@ -188,7 +185,7 @@
                                                             <div id="submenu-12" class="collapse submenu" style="">
                                                                 <ul class="nav flex-column">
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-12-1" aria-controls="submenu-12-1">por Mes</a>
+                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-12-1" aria-controls="submenu-12-1">Mensal</a>
                                                                         <div id="submenu-12-1" class="collapse submenu" style="">
                                                                             <ul class="nav flex-column">
                                                                                 <h:form id="gerarExcel">
@@ -232,7 +229,7 @@
                                                                         </div>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-12-2" aria-controls="submenu-12-2">por Ano</a>
+                                                                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-12-2" aria-controls="submenu-12-2">Anual</a>
                                                                         <div id="submenu-12-2" class="collapse submenu" style="">
                                                                             <ul class="nav flex-column">
                                                                                 <li class="nav-item">
@@ -268,9 +265,9 @@
             <!-- ============================================================== -->
             <div>
 
-                    <ui:insert name="centro">
+                <ui:insert name="centro">
 
-                    </ui:insert>
+                </ui:insert>
 
 
             </div>
@@ -303,16 +300,11 @@
         <!-- end main wrapper -->
         <!-- ============================================================== -->
         <!-- Optional JavaScript -->
-
-        <h:outputScript library="assets/vendor/jquery" name="jquery-3.3.1.min.js" />
-        <h:outputScript library="assets/vendor/bootstrap/js" name="bootstrap.bundle.js" />
-        <h:outputScript library="assets/vendor/slimscroll" name="jquery.slimscroll.js" />
-        <h:outputScript library="assets/libs/js" name="main-js.js" />
-
-        <!--<script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>-->
-        <!--<script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>-->
-        <!--<script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>-->
-        <!--<script src="assets/libs/js/main-js.js"></script>-->
+        <ui:insert name="js"/>
+        <script src="resources/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <script src="resources/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="resources/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+        <script src="resources/assets/libs/js/main-js.js"></script>
     </h:body>
 
 </html>

@@ -20,9 +20,15 @@ public class UsuarioLogadoControl {
     private Usuario usuario;
     private Session session;
     private UsuarioDao usuarioDao;
+    private String login;
 
-    public void pegarUsuarioSpring() {
-        String login = resgatarLoginSpring();
+    public UsuarioLogadoControl() {
+        pegarUsuarioSpring();
+
+    }
+
+    private void pegarUsuarioSpring() {
+        login = resgatarLoginSpring();
         usuarioDao = new UsuarioDaoImpl();
         try {
             session = HibernateUtil.abreConexao();
@@ -33,14 +39,12 @@ public class UsuarioLogadoControl {
     }
 
     private String resgatarLoginSpring() {
-        String login = null;
         SecurityContext securityContext = SecurityContextHolder.getContext();
         try {
             if (securityContext instanceof SecurityContext) {
                 Authentication autenticado = securityContext.getAuthentication();
                 if (autenticado instanceof Authentication) {
                     login = ((User) autenticado.getPrincipal()).getUsername();
-                    pegarUsuarioSpring();
                 }
             }
         } catch (Exception e) {
