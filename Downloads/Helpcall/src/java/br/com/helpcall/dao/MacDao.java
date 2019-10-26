@@ -14,9 +14,12 @@ import org.hibernate.Session;
  *
  * @author Thaisa
  */
-public interface MacDao extends BaseDao <Mac, String>{
-    
-    public List<Mac> listarPorQuarto(String quarto, Session session)throws HibernateException;
-    public List<Mac> listarTodos (Session session ) throws HibernateException;
-    
+public interface MacDao extends BaseDao<Mac, String> {
+
+    public List<Mac> listarPorQuarto(String quarto, Session session) throws HibernateException;
+
+    public List<Mac> listarTodos(Session session) throws HibernateException;
+
+    public List<Mac> listarPorLeito(Mac mac, Session session);
+
 }

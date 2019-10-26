@@ -37,9 +37,9 @@ public class MacControl implements Serializable {
     private Session session;
     private List<Mac> macs;
     private int numCombo;
-    
+
     @PostConstruct
-    public void inicializar(){
+    public void inicializar() {
         carregaCboxQuarto();
     }
 
@@ -76,17 +76,21 @@ public class MacControl implements Serializable {
             mac.setStatus(true);
             macDao = new MacDaoImpl();
             session = HibernateUtil.abreConexao();
-            macDao.salvarOuAlterar(mac, session);
+            if (verifcaDados(mac, session)) {
+                macDao.salvarOuAlterar(mac, session);
+
+            } else {
+                System.out.println("Leito ja possui controle");
+            }
             session.close();
             porta = new Porta();
             mac = new Mac();
         } catch (HibernateException e) {
             System.out.println("Erro ao cadastrar " + e.getMessage());
         }
-        
+
         return "";
     }
-
 
     private void carregaCboxQuarto() {
         session = HibernateUtil.abreConexao();
@@ -97,7 +101,7 @@ public class MacControl implements Serializable {
         for (Porta port : portas) {
             quartos.add(new SelectItem(Integer.parseInt(port.getQuarto()), port.getQuarto()));
         }
-        
+
     }
 
     public String listar() {
@@ -139,6 +143,10 @@ public class MacControl implements Serializable {
     public void setNumCombo(int numCombo) {
         this.numCombo = numCombo;
     }
-    
+
+    private boolean verifcaDados(Mac mac, Session session) {
+        List<Mac> list = macDao.listarPorLeito(mac, session);
+        return list.isEmpty();
+    }
 
 }
