@@ -4,7 +4,7 @@ import br.com.helpcall.model.Chamado;
 import br.com.helpcall.model.ChamadoAtivo;
 import br.com.helpcall.model.Mac;
 import br.com.helpcall.model.Perfil;
-import br.com.helpcall.model.Porta;
+import br.com.helpcall.model.Quarto;
 import br.com.helpcall.model.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +28,7 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Perfil.class);
             cfg.addAnnotatedClass(Mac.class);
             cfg.addAnnotatedClass(Chamado.class);
-            cfg.addAnnotatedClass(Porta.class);
+            cfg.addAnnotatedClass(Quarto.class);
             cfg.addAnnotatedClass(ChamadoAtivo.class);
             
 

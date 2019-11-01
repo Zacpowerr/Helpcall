@@ -8,8 +8,11 @@ package br.com.helpcall.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,32 +23,46 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Eduardo
+ * @author Aluno
  */
 @Entity
-@Table(name = "porta")
+@Table(name = "quarto")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Porta.findAll", query = "SELECT p FROM Porta p")
-    , @NamedQuery(name = "Porta.findByQuarto", query = "SELECT p FROM Porta p WHERE p.quarto = :quarto")
-    , @NamedQuery(name = "Porta.findByQteControle", query = "SELECT p FROM Porta p WHERE p.qteControle = :qteControle")})
-public class Porta implements Serializable {
+    @NamedQuery(name = "Quarto.findAll", query = "SELECT q FROM Quarto q")
+    , @NamedQuery(name = "Quarto.findById", query = "SELECT q FROM Quarto q WHERE q.id = :id")
+    , @NamedQuery(name = "Quarto.findByQuarto", query = "SELECT q FROM Quarto q WHERE q.quarto = :quarto")
+    , @NamedQuery(name = "Quarto.findByLimiteControle", query = "SELECT q FROM Quarto q WHERE q.limiteControle = :limiteControle")})
+public class Quarto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Long id;
     @Basic(optional = false)
     @Column(name = "quarto")
     private String quarto;
-    @Column(name = "qte_controle")
-    private Integer qteControle;
-    @OneToMany(mappedBy = "idQuarto")
+    @Column(name = "limite_controle")
+    private Integer limiteControle;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quartoId")
     private Collection<Mac> macCollection;
 
-    public Porta() {
+    public Quarto() {
     }
 
-    public Porta(String quarto) {
+    public Quarto(Long id, String quarto) {
+        this.id = id;
         this.quarto = quarto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getQuarto() {
@@ -56,12 +73,12 @@ public class Porta implements Serializable {
         this.quarto = quarto;
     }
 
-    public Integer getQteControle() {
-        return qteControle;
+    public Integer getLimiteControle() {
+        return limiteControle;
     }
 
-    public void setQteControle(Integer qteControle) {
-        this.qteControle = qteControle;
+    public void setLimiteControle(Integer limiteControle) {
+        this.limiteControle = limiteControle;
     }
 
     @XmlTransient
@@ -76,18 +93,18 @@ public class Porta implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (quarto != null ? quarto.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Porta)) {
+        if (!(object instanceof Quarto)) {
             return false;
         }
-        Porta other = (Porta) object;
-        if ((this.quarto == null && other.quarto != null) || (this.quarto != null && !this.quarto.equals(other.quarto))) {
+        Quarto other = (Quarto) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -95,7 +112,7 @@ public class Porta implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.helpcall.model.Porta[ quarto=" + quarto + " ]";
+        return "br.com.helpcall.model.Quarto[ id=" + id + " ]";
     }
     
 }

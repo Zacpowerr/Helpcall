@@ -72,7 +72,7 @@ public class UsuarioControl implements Serializable {
             usuarioDao = new UsuarioDaoImpl();
             session = HibernateUtil.abreConexao();
             Perfil perfil = usuarioDao.carregarGestor(session);
-            usuario.setPerfil(perfil);
+            usuario.setPerfilId(perfil);
             usuario.setEnable(true);
             usuarioDao.salvarOuAlterar(usuario, session);
             sendMail = new SendMail();

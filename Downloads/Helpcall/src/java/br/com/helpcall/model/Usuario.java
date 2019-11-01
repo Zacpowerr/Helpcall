@@ -6,6 +6,7 @@
 package br.com.helpcall.model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -21,41 +25,43 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "usuario")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
+    , @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id")
+    , @NamedQuery(name = "Usuario.findByLogin", query = "SELECT u FROM Usuario u WHERE u.login = :login")
+    , @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")
+    , @NamedQuery(name = "Usuario.findByEnable", query = "SELECT u FROM Usuario u WHERE u.enable = :enable")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(nullable = false, unique = true, length = 45)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "login")
     private String login;
-
-    @Column(nullable = false, length = 8)
+    @Column(name = "senha")
     private String senha;
-
-    @Column(nullable = false)
+    @Column(name = "enable")
     private boolean enable;
-    
-    @ManyToOne
-    @JoinColumn (name ="idPerfil")
-    private Perfil perfil;
-    
+    @JoinColumn(name = "perfil_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Perfil perfilId;
+
     public Usuario() {
     }
 
-    public Usuario(Long id, String login, String senha, boolean enable) {
+    public Usuario(Integer id) {
         this.id = id;
-        this.login = login;
-        this.senha = senha;
-        this.enable = enable;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -83,12 +89,12 @@ public class Usuario implements Serializable {
         this.enable = enable;
     }
 
-    public Perfil getPerfil() {
-        return perfil;
+    public Perfil getPerfilId() {
+        return perfilId;
     }
 
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
+    public void setPerfilId(Perfil perfilId) {
+        this.perfilId = perfilId;
     }
 
     @Override
@@ -113,7 +119,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.helpcall.model.Usu[ id=" + id + " ]";
+        return "br.com.helpcall.model.Usuario[ id=" + id + " ]";
     }
 
 }

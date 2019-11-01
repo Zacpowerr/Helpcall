@@ -5,7 +5,7 @@
  */
 package br.com.helpcall.dao;
 
-import br.com.helpcall.model.Porta;
+import br.com.helpcall.model.Quarto;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -14,8 +14,8 @@ import org.hibernate.Session;
  *
  * @author Thaisa
  */
-public interface PortaDao extends BaseDao <Porta, String>{
-    
-    public List<Porta> listarTodos (Session session ) throws HibernateException;
-    
+public interface QuartoDao extends BaseDao<Quarto, Long> {
+
+    List<Quarto> listarTodos(Session session) throws HibernateException;
+
 }

@@ -74,11 +74,11 @@ public class ReportGenerator {
             table.addCell(cell5);
 
             for (Chamado c : listChamados) {
-                cell1 = new PdfPCell(new Paragraph(c.getIdChamado().toString()));
-                cell2 = new PdfPCell(new Paragraph(c.getMACidMAC().getIdQuarto().getQuarto()));
-                cell3 = new PdfPCell(new Paragraph(c.getMACidMAC().getLeito()));
-                cell4 = new PdfPCell(new Paragraph(c.getHorainit().toString()));
-                cell5 = new PdfPCell(new Paragraph(c.getHoraend().toString()));
+                cell1 = new PdfPCell(new Paragraph(c.getId().toString()));
+                cell2 = new PdfPCell(new Paragraph(c.getMacId().getQuartoId().getQuarto()));
+                cell3 = new PdfPCell(new Paragraph(c.getMacId().getLeito()));
+                cell4 = new PdfPCell(new Paragraph(c.getHoraInit().toString()));
+                cell5 = new PdfPCell(new Paragraph(c.getHoraEnd().toString()));
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
@@ -129,16 +129,16 @@ public class ReportGenerator {
                 } else {
                     System.out.println("tudo certo");
                 }
-                Label quartol = new Label(coluna, linha, String.valueOf(c.getMACidMAC().getIdQuarto().getQuarto()));
+                Label quartol = new Label(coluna, linha, String.valueOf(c.getMacId().getQuartoId().getQuarto()));
                 sheet.addCell(quartol);
                 coluna++;
-                Label leitol = new Label(coluna, linha, c.getMACidMAC().getLeito());
+                Label leitol = new Label(coluna, linha, c.getMacId().getLeito());
                 sheet.addCell(leitol);
                 coluna++;
-                Label horainitl = new Label(coluna, linha, c.getHorainit().toString());
+                Label horainitl = new Label(coluna, linha, c.getHoraInit().toString());
                 sheet.addCell(horainitl);
                 coluna++;
-                Label horaendl = new Label(coluna, linha, c.getHoraend().toString());
+                Label horaendl = new Label(coluna, linha, c.getHoraEnd().toString());
                 sheet.addCell(horaendl);
                 coluna++;
             }

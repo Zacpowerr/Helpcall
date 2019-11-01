@@ -15,16 +15,16 @@ import org.junit.Test;
  * @author Eduardo
  */
 public class ChamadoAtivoImplTest {
-    
+
     public ChamadoAtivoImplTest() {
     }
-    
-   @Test
-   public void chamadoAtivoTeste(){
-       Session session = HibernateUtil.abreConexao();
-       ChamadoAtivoDao chamadoAtivoDao = new ChamadoAtivoImpl();
-       System.out.println(chamadoAtivoDao.listarChamadoAtivo(session).get(0).getIdQuarto());
-       
-   }
-    
+
+    @Test
+    public void chamadoAtivoTeste() {
+        Session session = HibernateUtil.abreConexao();
+        ChamadoAtivoDao chamadoAtivoDao = new ChamadoAtivoImpl();
+        System.out.println(chamadoAtivoDao.listarChamadoAtivo(session).get(0).getQuartoId());
+
+    }
+
 }

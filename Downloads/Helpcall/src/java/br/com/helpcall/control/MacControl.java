@@ -7,11 +7,9 @@ package br.com.helpcall.control;
 
 import br.com.helpcall.dao.HibernateUtil;
 import br.com.helpcall.dao.MacDao;
-import br.com.helpcall.dao.PortaDao;
 import br.com.helpcall.daoImpl.MacDaoImpl;
-import br.com.helpcall.daoImpl.PortaDaoImpl;
+import br.com.helpcall.daoImpl.QuartoDaoImpl;
 import br.com.helpcall.model.Mac;
-import br.com.helpcall.model.Porta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +19,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import br.com.helpcall.dao.QuartoDao;
+import br.com.helpcall.model.Quarto;
 
 /**
  *
@@ -31,7 +31,7 @@ import org.hibernate.Session;
 public class MacControl implements Serializable {
 
     private Mac mac;
-    private Porta porta;
+    private Quarto quarto;
     private List<SelectItem> quartos;
     private MacDao macDao;
     private Session session;
@@ -72,8 +72,8 @@ public class MacControl implements Serializable {
 
     public String salvar() {
         try {
-            mac.setIdQuarto(porta);
-            mac.setStatus(true);
+            mac.setQuartoId(quarto);
+            mac.setStatus("1");
             macDao = new MacDaoImpl();
             session = HibernateUtil.abreConexao();
             if (verifcaDados(mac, session)) {
@@ -83,7 +83,7 @@ public class MacControl implements Serializable {
                 System.out.println("Leito ja possui controle");
             }
             session.close();
-            porta = new Porta();
+            quarto = new Quarto();
             mac = new Mac();
         } catch (HibernateException e) {
             System.out.println("Erro ao cadastrar " + e.getMessage());
@@ -94,12 +94,12 @@ public class MacControl implements Serializable {
 
     private void carregaCboxQuarto() {
         session = HibernateUtil.abreConexao();
-        PortaDao portaDao = new PortaDaoImpl();
+        QuartoDao quartoDao = new QuartoDaoImpl();
         quartos = new ArrayList<>();
-        List<Porta> portas = portaDao.listarTodos(session);
+        List<Quarto> quartoList = quartoDao.listarTodos(session);
         session.close();
-        for (Porta port : portas) {
-            quartos.add(new SelectItem(Integer.parseInt(port.getQuarto()), port.getQuarto()));
+        for (Quarto q : quartoList) {
+            quartos.add(new SelectItem((q.getQuarto()), q.getQuarto()));
         }
 
     }
@@ -115,21 +115,6 @@ public class MacControl implements Serializable {
             System.out.println("Erro ao listar " + e.getMessage());
         }
         return "gestor/listaControles";
-    }
-
-    public Porta getPorta() {
-        if (porta == null) {
-            porta = new Porta();
-        }
-        return porta;
-    }
-
-    public void setPorta(Porta quarto) {
-        this.porta = quarto;
-    }
-
-    public void ativar() {
-        System.out.println(mac.isStatus());
     }
 
     public List<SelectItem> getQuartos() {

@@ -81,11 +81,11 @@ public class ChamadoDaoImplTest {
             table.addCell(cell5);
 
             for (Chamado c : listChamados) {
-                cell1 = new PdfPCell(new Paragraph(c.getIdChamado().toString()));
-                cell2 = new PdfPCell(new Paragraph(c.getMACidMAC().getIdQuarto().getQuarto()));
-                cell3 = new PdfPCell(new Paragraph(c.getMACidMAC().getLeito()));
-                cell4 = new PdfPCell(new Paragraph(c.getHorainit().toString()));
-                cell5 = new PdfPCell(new Paragraph(c.getHoraend().toString()));
+                cell1 = new PdfPCell(new Paragraph(c.getId().toString()));
+                cell2 = new PdfPCell(new Paragraph(c.getMacId().getQuartoId().getQuarto()));
+                cell3 = new PdfPCell(new Paragraph(c.getMacId().getLeito()));
+                cell4 = new PdfPCell(new Paragraph(c.getHoraInit().toString()));
+                cell5 = new PdfPCell(new Paragraph(c.getHoraEnd().toString()));
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);

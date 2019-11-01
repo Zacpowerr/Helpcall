@@ -10,8 +10,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,50 +22,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Eduardo
+ * @author Aluno
  */
 @Entity
 @Table(name = "chamado")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Chamado.findAll", query = "SELECT c FROM Chamado c")
-    , @NamedQuery(name = "Chamado.findByIdChamado", query = "SELECT c FROM Chamado c WHERE c.idChamado = :idChamado")
+    , @NamedQuery(name = "Chamado.findById", query = "SELECT c FROM Chamado c WHERE c.id = :id")
     , @NamedQuery(name = "Chamado.findByStatus", query = "SELECT c FROM Chamado c WHERE c.status = :status")
-    , @NamedQuery(name = "Chamado.findByHorainit", query = "SELECT c FROM Chamado c WHERE c.horainit = :horainit")
-    , @NamedQuery(name = "Chamado.findByHoraend", query = "SELECT c FROM Chamado c WHERE c.horaend = :horaend")})
+    , @NamedQuery(name = "Chamado.findByHoraInit", query = "SELECT c FROM Chamado c WHERE c.horaInit = :horaInit")
+    , @NamedQuery(name = "Chamado.findByHoraEnd", query = "SELECT c FROM Chamado c WHERE c.horaEnd = :horaEnd")})
 public class Chamado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idChamado")
-    private Integer idChamado;
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "status")
     private String status;
-    @Column(name = "horainit")
+    @Column(name = "hora_init")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date horainit;
-    @Column(name = "horaend")
+    private Date horaInit;
+    @Column(name = "hora_end")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date horaend;
-    @JoinColumn(name = "MAC_idMAC", referencedColumnName = "macadress")
-    @ManyToOne
-    private Mac mACidMAC;
+    private Date horaEnd;
+    @JoinColumn(name = "mac_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Mac macId;
 
     public Chamado() {
     }
 
-    public Chamado(Integer idChamado) {
-        this.idChamado = idChamado;
+    public Chamado(Integer id) {
+        this.id = id;
     }
 
-    public Integer getIdChamado() {
-        return idChamado;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdChamado(Integer idChamado) {
-        this.idChamado = idChamado;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getStatus() {
@@ -78,34 +75,34 @@ public class Chamado implements Serializable {
         this.status = status;
     }
 
-    public Date getHorainit() {
-        return horainit;
+    public Date getHoraInit() {
+        return horaInit;
     }
 
-    public void setHorainit(Date horainit) {
-        this.horainit = horainit;
+    public void setHoraInit(Date horaInit) {
+        this.horaInit = horaInit;
     }
 
-    public Date getHoraend() {
-        return horaend;
+    public Date getHoraEnd() {
+        return horaEnd;
     }
 
-    public void setHoraend(Date horaend) {
-        this.horaend = horaend;
+    public void setHoraEnd(Date horaEnd) {
+        this.horaEnd = horaEnd;
     }
 
-    public Mac getMACidMAC() {
-        return mACidMAC;
+    public Mac getMacId() {
+        return macId;
     }
 
-    public void setMACidMAC(Mac mACidMAC) {
-        this.mACidMAC = mACidMAC;
+    public void setMacId(Mac macId) {
+        this.macId = macId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idChamado != null ? idChamado.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -116,7 +113,7 @@ public class Chamado implements Serializable {
             return false;
         }
         Chamado other = (Chamado) object;
-        if ((this.idChamado == null && other.idChamado != null) || (this.idChamado != null && !this.idChamado.equals(other.idChamado))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -124,7 +121,7 @@ public class Chamado implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.helpcall.model.Chamado[ idChamado=" + idChamado + " ]";
+        return "br.com.helpcall.model.Chamado[ id=" + id + " ]";
     }
-
+    
 }

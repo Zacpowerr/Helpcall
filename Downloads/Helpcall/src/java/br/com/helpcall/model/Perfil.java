@@ -6,31 +6,61 @@
 package br.com.helpcall.model;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Aluno
  */
 @Entity
+@Table(name = "perfil")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p")
+    , @NamedQuery(name = "Perfil.findById", query = "SELECT p FROM Perfil p WHERE p.id = :id")
+    , @NamedQuery(name = "Perfil.findByDescricao", query = "SELECT p FROM Perfil p WHERE p.descricao = :descricao")
+    , @NamedQuery(name = "Perfil.findByTipo", query = "SELECT p FROM Perfil p WHERE p.tipo = :tipo")})
 public class Perfil implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String tipo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "descricao")
     private String descricao;
+    @Column(name = "tipo")
+    private String tipo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfilId")
+    private Collection<Usuario> usuarioCollection;
 
-    public String getTipo() {
-        return tipo;
+    public Perfil() {
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public Perfil(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getDescricao() {
@@ -40,16 +70,22 @@ public class Perfil implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    
-    
-    
 
-    public Long getId() {
-        return id;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @XmlTransient
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override

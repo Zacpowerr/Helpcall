@@ -41,7 +41,7 @@ public class ChamadoDaoImpl extends BaseDaoImpl<Chamado, Long>
 
     @Override
     public List<Chamado> listarTodos(Session session) throws HibernateException {
-        return session.createQuery("from Chamado order by idChamado DESC").setMaxResults(10).list();
+        return session.createQuery("from Chamado order by id DESC").setMaxResults(10).list();
     }
 
     public File gerarPdf(Integer year, Integer month, Session session) throws IOException {

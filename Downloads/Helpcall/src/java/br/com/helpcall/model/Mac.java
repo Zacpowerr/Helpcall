@@ -8,8 +8,11 @@ package br.com.helpcall.model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,13 +25,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Eduardo
+ * @author Aluno
  */
 @Entity
 @Table(name = "mac")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Mac.findAll", query = "SELECT m FROM Mac m")
+    , @NamedQuery(name = "Mac.findById", query = "SELECT m FROM Mac m WHERE m.id = :id")
     , @NamedQuery(name = "Mac.findByMacadress", query = "SELECT m FROM Mac m WHERE m.macadress = :macadress")
     , @NamedQuery(name = "Mac.findByLeito", query = "SELECT m FROM Mac m WHERE m.leito = :leito")
     , @NamedQuery(name = "Mac.findByStatus", query = "SELECT m FROM Mac m WHERE m.status = :status")})
@@ -36,24 +40,41 @@ public class Mac implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "macadress")
     private String macadress;
     @Column(name = "leito")
     private String leito;
     @Column(name = "status")
-    private boolean status;
-    @OneToMany(mappedBy = "mACidMAC")
+    private String status;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "macId")
     private Collection<Chamado> chamadoCollection;
-    @JoinColumn(name = "idQuarto", referencedColumnName = "quarto")
-    @ManyToOne
-    private Porta idQuarto;
+    @JoinColumn(name = "quarto_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Quarto quartoId;
 
     public Mac() {
     }
 
-    public Mac(String macadress) {
+    public Mac(Integer id) {
+        this.id = id;
+    }
+
+    public Mac(Integer id, String macadress) {
+        this.id = id;
         this.macadress = macadress;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getMacadress() {
@@ -72,16 +93,12 @@ public class Mac implements Serializable {
         this.leito = leito;
     }
 
-    public boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
-    }
-
-    public boolean isStatus() {
-        return status;
     }
 
     @XmlTransient
@@ -93,18 +110,18 @@ public class Mac implements Serializable {
         this.chamadoCollection = chamadoCollection;
     }
 
-    public Porta getIdQuarto() {
-        return idQuarto;
+    public Quarto getQuartoId() {
+        return quartoId;
     }
 
-    public void setIdQuarto(Porta idQuarto) {
-        this.idQuarto = idQuarto;
+    public void setQuartoId(Quarto quartoId) {
+        this.quartoId = quartoId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (macadress != null ? macadress.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -115,7 +132,7 @@ public class Mac implements Serializable {
             return false;
         }
         Mac other = (Mac) object;
-        if ((this.macadress == null && other.macadress != null) || (this.macadress != null && !this.macadress.equals(other.macadress))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -123,7 +140,7 @@ public class Mac implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.helpcall.model.Mac[ macadress=" + macadress + " ]";
+        return "br.com.helpcall.model.Mac[ id=" + id + " ]";
     }
-
+    
 }
