@@ -24,16 +24,16 @@ public class MacDaoImpl extends BaseDaoImpl<Mac, String> implements MacDao {
     }
 
     @Override
-    public List<Mac> listarPorQuarto(String quarto, Session session) throws HibernateException {
-        Query consulta = session.createQuery("from Mac where quarto = :quarto");
-        consulta.setParameter(quarto, quarto);
+    public List<Mac> listarPorQuarto(int quartoId, Session session) throws HibernateException {
+        Query consulta = session.createQuery("from Mac where quarto_id = :quarto_id");
+        consulta.setParameter("quarto_id", quartoId);
         return consulta.list();
     }
 
     @Override
     public List<Mac> listarPorLeito(Mac mac, Session session) {
-        Query consulta = session.createQuery("from Mac where idQuarto =:quarto and leito=:leito");
-        consulta.setParameter("quarto", mac.getQuartoId());
+        Query consulta = session.createQuery("from Mac where quarto_id =:quarto_id and leito=:leito");
+        consulta.setParameter("quarto_id", mac.getQuartoId());
         consulta.setParameter("leito", mac.getLeito());
         return consulta.list();
     }
