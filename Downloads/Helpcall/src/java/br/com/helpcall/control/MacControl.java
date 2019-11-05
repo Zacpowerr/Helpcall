@@ -44,6 +44,7 @@ public class MacControl implements Serializable {
     }
 
     public MacControl() {
+        System.out.println("");
     }
 
     public Mac getMac() {
@@ -80,6 +81,7 @@ public class MacControl implements Serializable {
     
     public String salvar() {
         try {
+//            quarto.setId(idQuarto);
             mac.setQuartoId(quarto);
             mac.setStatus("1");
             macDao = new MacDaoImpl();
@@ -88,7 +90,7 @@ public class MacControl implements Serializable {
                 macDao.salvarOuAlterar(mac, session);
 
             } else {
-                System.out.println("Leito ja possui controle");
+                System.out.println("Leito já possui controle");
             }
             session.close();
             quarto = new Quarto();
