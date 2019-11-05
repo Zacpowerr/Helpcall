@@ -20,18 +20,19 @@
                 <div class="card-body">
                 </div>
                 <div class="form-group">
-                    <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'Macadress' obrigatório"
-                                  placeholder="Mac Adress" autocomplete="off" value="#{macC.mac.macadress}" />
+                    <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'MAC Address' obrigatório"
+                                  placeholder="Digite o nº MAC Address" autocomplete="off" value="#{macC.mac.macadress}" />
                 </div>
-                <div class="form-group">
-                    <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'Leito' obrigatório" placeholder="Leito" value="#{macC.mac.leito}" />
-                </div>
-                <div class="form-group">
-                    <h:selectOneMenu id="quarto"   value="#{macC.porta.quarto}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
-                        <f:selectItem itemLabel="quarto" itemValue=""/>
+                    <div class="form-group">
+                    <h:selectOneMenu id="quarto"   value="#{macC.quarto.quarto}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
+                        <f:selectItem itemLabel="Selecione o nº do Quarto" itemValue=""/>
                         <f:selectItems value="#{macC.quartos}"  /> 
                     </h:selectOneMenu>
                 </div>
+                
+                <div class="form-group">
+                    <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'Leito' obrigatório" placeholder="Leito" value="#{macC.mac.leito}" />
+                </div>    
                 <div class="form-group">
                     <p:selectBooleanButton id="status" value="#{macC.mac.status}" rendered="#{macC.mac.macadress!=null}" 
                                            onLabel="Ativo" offLabel="Inativo" onIcon="pi pi-check" offIcon="pi pi-times"  >

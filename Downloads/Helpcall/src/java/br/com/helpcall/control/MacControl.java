@@ -70,6 +70,14 @@ public class MacControl implements Serializable {
         return macs;
     }
 
+    public Quarto getQuarto() {
+        return quarto;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
+    
     public String salvar() {
         try {
             mac.setQuartoId(quarto);
