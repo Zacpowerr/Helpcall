@@ -80,6 +80,7 @@ public class UsuarioControl implements Serializable {
             sendMail.sendEmail(receiver, subject, message);
             Mensagens.salvoComSucesso();
             session.close();
+            usuario = new Usuario();
 
         } catch (HibernateException e) {
             Mensagens.erroCadastro();

@@ -79,13 +79,26 @@ public class MacControl implements Serializable {
         this.quarto = quarto;
     }
     
+      public List<SelectItem> getQuartos() {
+        return quartos;
+    }
+
+    public int getNumCombo() {
+        return numCombo;
+    }
+
+    public void setNumCombo(int numCombo) {
+        this.numCombo = numCombo;
+    }
+    
+    
+
     public String salvar() {
         try {
-//            quarto.setId(idQuarto);
-            mac.setQuartoId(quarto);
-            mac.setStatus("1");
             macDao = new MacDaoImpl();
             session = HibernateUtil.abreConexao();
+            mac.setQuartoId(quarto);
+            mac.setStatus("1");
             if (verifcaDados(mac, session)) {
                 macDao.salvarOuAlterar(mac, session);
 
@@ -98,7 +111,6 @@ public class MacControl implements Serializable {
         } catch (HibernateException e) {
             System.out.println("Erro ao cadastrar " + e.getMessage());
         }
-
         return "";
     }
 
@@ -127,17 +139,7 @@ public class MacControl implements Serializable {
         return "gestor/listaControles";
     }
 
-    public List<SelectItem> getQuartos() {
-        return quartos;
-    }
-
-    public int getNumCombo() {
-        return numCombo;
-    }
-
-    public void setNumCombo(int numCombo) {
-        this.numCombo = numCombo;
-    }
+  
 
     private boolean verifcaDados(Mac mac, Session session) {
         List<Mac> list = macDao.listarPorLeito(mac, session);
