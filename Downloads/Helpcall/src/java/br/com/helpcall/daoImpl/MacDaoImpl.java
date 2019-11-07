@@ -32,7 +32,7 @@ public class MacDaoImpl extends BaseDaoImpl<Mac, String> implements MacDao {
 
     @Override
     public List<Mac> listarPorLeito(Mac mac, Session session) {
-        Query consulta = session.createQuery("from Mac where quarto_id =:quarto_id and leito=:leito");
+        Query consulta = session.createQuery("from Mac where quarto_id =:quarto_id and leito=:leito and status=1");
         consulta.setParameter("quarto_id", mac.getQuartoId());
         consulta.setParameter("leito", mac.getLeito());
         return consulta.list();
