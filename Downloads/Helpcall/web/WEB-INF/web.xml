@@ -23,7 +23,7 @@
         <welcome-file>tabelaChamados.xhtml</welcome-file>
     </welcome-file-list>
     
-<!--     CONFIGURAÇÃO DO SPRING SECURITY 
+     <!--CONFIGURAÇÃO DO SPRING SECURITY--> 
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -36,7 +36,7 @@
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
+    </filter-mapping>
 
     
 </web-app>
