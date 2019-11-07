@@ -34,9 +34,9 @@
                                             <ui:repeat value="#{chamadoC.listChamadoAtivo}" var="ativo">
                                                 <h:panelGroup>
                                                     <tr>
-                                                        <td>#{ativo.idQuarto}</td>
+                                                        <td>#{ativo.quartoId}</td>
                                                         <td>#{ativo.leito}</td>
-                                                        <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="HH:mm:ss" timeZone="GMT-3" /></h:outputLabel> </td>
+                                                        <td><h:outputLabel value="#{ativo.horaInit}"><f:convertDateTime pattern="HH:mm:ss" timeZone="GMT-3" /></h:outputLabel> </td>
                                                     </tr>
                                                 </h:panelGroup>
                                             </ui:repeat>
@@ -73,11 +73,11 @@
                                         <tbody>
                                             <ui:repeat value="#{chamadoC.listTodos}" var="ativo">
                                                 <tr>
-                                                    <th scope="row">#{ativo.MACidMAC.idQuarto.quarto}</th>
-                                                    <td>#{ativo.MACidMAC.leito}</td>
-                                                    <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3" /></h:outputLabel> </td>
-                                                    <td><h:outputLabel value="#{ativo.horaend}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3"/></h:outputLabel> </td>
-                                                    <td><h:outputLabel value="#{ativo.horainit}"><f:convertDateTime pattern="dd-MM-YYYY" /></h:outputLabel> </td>
+                                                    <th scope="row">#{ativo.macId.quartoId.quarto}</th>
+                                                    <td>#{ativo.macId.leito}</td>
+                                                    <td><h:outputLabel value="#{ativo.horaInit}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3" /></h:outputLabel> </td>
+                                                    <td><h:outputLabel value="#{ativo.horaEnd}"><f:convertDateTime pattern="HH:mm:ss"  timeZone="GMT-3"/></h:outputLabel> </td>
+                                                    <td><h:outputLabel value="#{ativo.horaInit}"><f:convertDateTime pattern="dd-MM-YYYY" /></h:outputLabel> </td>
                                                 </tr>
                                             </ui:repeat>
                                         </tbody>
@@ -96,9 +96,16 @@
         </h:panelGroup>
     </ui:define>
     <ui:define name="css">
+        <link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"/>
+        <link href="resources/assets/vendor/fonts/circular-std/style.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="resources/assets/libs/css/style.css"/>
+        <link rel="stylesheet" href="resources/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"/>
     </ui:define>
 
     <ui:define name="js">
-    </ui:define>
-
+        <script src="resources/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <script src="resources/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="resources/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+        <script src="resources/assets/libs/js/main-js.js"></script>
+    </ui:define> 
 </ui:composition>
