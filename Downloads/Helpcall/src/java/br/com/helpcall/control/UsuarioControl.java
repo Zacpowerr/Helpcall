@@ -65,7 +65,7 @@ public class UsuarioControl implements Serializable {
         return usuarios;
     }
 
-    public String salvar() {
+    public void salvar() {
         subject = "Cadastro no sistema Helpcall";
         message = "Bem vindo ao sistema Helpcall";
         try {
@@ -89,7 +89,7 @@ public class UsuarioControl implements Serializable {
             sendMail.sendEmail(receiver, subject, message);
             System.out.println("Erro ao cadastrar " + e.getMessage());
         }
-        return "cadUsuario";
+//        return "tabelaChamados";
     }
 
     public String listar() {
@@ -102,7 +102,7 @@ public class UsuarioControl implements Serializable {
         } catch (HibernateException e) {
             System.out.println("Erro ao listar " + e.getMessage());
         }
-        return "listaUsuarios";
+        return "/gestor/listaUsuarios";
     }
 
     public void logar() {
