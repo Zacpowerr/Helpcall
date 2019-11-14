@@ -42,7 +42,7 @@ public class Quarto implements Serializable {
     @Column(name = "id")
     private Long id;
     @Basic(optional = false)
-    @Column(name = "quarto")
+    @Column(name = "quarto", unique = true)
     private String quarto;
     @Column(name = "limite_controle")
     private Integer limiteControle;

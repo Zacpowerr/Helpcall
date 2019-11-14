@@ -35,7 +35,7 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario,Long> implements Usuario
 
     @Override
     public List<Usuario> listarGestores(Session session) throws HibernateException {
-        Query consulta = session.createQuery("from Usuario u  where u.perfil.tipo = 'ROLE_GESTOR'");
+        Query consulta = session.createQuery("from Usuario u  where u.perfilId.tipo = 'ROLE_GESTOR'");
         return consulta.list();
     }
     

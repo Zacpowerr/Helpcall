@@ -13,6 +13,10 @@
 
         <!-- Bootstrap CSS -->
         <ui:insert name="css"></ui:insert>
+        <h:outputStylesheet library="assets/libs/css" name="style.css" />
+        <h:outputStylesheet library="assets/vendor/fonts/fontawesome/css" name="fontawesome-all.css" />
+        <h:outputStylesheet library="assets/vendor/bootstrap/css" name="bootstrap.min.css" />
+        <h:outputStylesheet library="assets/vendor/fonts/circular-std" name="style.css" />
         <!--        <link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"></link>
                 <link href="resources/assets/vendor/fonts/circular-std/style.css" rel="stylesheet"></link>
                 <link rel="stylesheet" href="resources/assets/libs/css/style.css"></link>
@@ -83,7 +87,7 @@
                                                     <ul class="nav flex-column">
                                                         <h:form id="menuUsu" style="margin:0px;">
                                                             <li class="nav-item">
-                                                                <h:commandLink styleClass="nav-link" action="/gestor/cadUsuario" value="Cadastrar"/>
+                                                                <h:link styleClass="nav-link" value="Cadastrar" outcome="/gestor/cadUsuario"/>
                                                             </li>
                                                             <li class="nav-item">
                                                                 <h:commandLink value="Listar" styleClass="nav-link" action="#{usuarioC.listar}"/>
@@ -165,14 +169,16 @@
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11-2" aria-controls="submenu-11-2">Anual</a>
                                                                         <div id="submenu-11-2" class="collapse submenu" style="">
-                                                                            <ul class="nav flex-column">
-                                                                                <li class="nav-item">
-                                                                                    <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarPdf('','2019')}" />
-                                                                                </li>
-                                                                                <li class="nav-item">
-                                                                                    <p:commandLink class="nav-link" value="2020" action="#{chamadoC.gerarPdf('','2020')}" />
-                                                                                </li>
-                                                                            </ul>
+                                                                            <h:form>
+                                                                                <ul class="nav flex-column">
+                                                                                    <li class="nav-item">
+                                                                                        <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarPdf('','2019')}" />
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <p:commandLink class="nav-link" value="2020" action="#{chamadoC.gerarPdf('','2020')}" />
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </h:form>
                                                                         </div>
                                                                     </li>
                                                                 </ul>
@@ -229,14 +235,16 @@
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-12-2" aria-controls="submenu-12-2">Anual</a>
                                                                         <div id="submenu-12-2" class="collapse submenu" style="">
-                                                                            <ul class="nav flex-column">
-                                                                                <li class="nav-item">
-                                                                                    <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarExcel('','2019')}" />
-                                                                                </li>
-                                                                                <li class="nav-item">
-                                                                                    <p:commandLink class="nav-link" value="2020" action="#{chamadoC.gerarExcel('','2020')}" />
-                                                                                </li>
-                                                                            </ul>
+                                                                            <h:form>
+                                                                                <ul class="nav flex-column">
+                                                                                    <li class="nav-item">
+                                                                                        <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarExcel('','2019')}" />
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <p:commandLink class="nav-link" value="2020" action="#{chamadoC.gerarExcel('','2020')}" />
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </h:form>     
                                                                         </div>
                                                                     </li>
                                                                 </ul>
@@ -298,12 +306,17 @@
         <!-- end main wrapper -->
         <!-- ============================================================== -->
         <!-- Optional JavaScript -->
-        <ui:insert name="js"></ui:insert>
+        <!--<ui:insert name="js"></ui:insert>-->
 
 
+        <h:outputScript library="assets/vendor/jquery" name="jquery-3.3.1.min.js" />
+        <h:outputScript library="assets/vendor/bootstrap/js" name="bootstrap.bundle.js" />
+        <h:outputScript library="assets/vendor/slimscroll" name="jquery.slimscroll.js" />
+        <h:outputScript library="assets/libs/js" name="main-js.js" />
 
 
-        <!--        <script src="../resources/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<!--
+                <script src="../resources/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
                 <script src="../resources/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
                 <script src="../resources/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
                 <script src="../resources/assets/libs/js/main-js.js"></script>-->

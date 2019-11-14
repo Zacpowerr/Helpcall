@@ -48,6 +48,10 @@ public class UsuarioControl implements Serializable {
         }
         return usuario;
     }
+    
+    public void teste(){
+        System.out.println("chegou aquiiiiiiii ");
+    }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;

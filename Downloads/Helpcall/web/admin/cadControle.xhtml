@@ -24,7 +24,7 @@
                                   placeholder="Digite o nº MAC Address" autocomplete="off" value="#{macC.mac.macadress}" />
                 </div>
                 <div class="form-group">
-                    <h:selectOneMenu id="quarto"   value="#{macC.quarto.quarto}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
+                    <h:selectOneMenu id="quarto"   value="#{macC.quarto.id}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
                         <f:selectItem itemLabel="Selecione o nº do Quarto" itemValue=""/>
                         <f:selectItems value="#{macC.quartos}"  /> 
                     </h:selectOneMenu>
@@ -42,11 +42,9 @@
                                 </div>-->
             </div>
 
-            <h:form>
-                <div class="form-group pt-2">
-                    <p:commandButton class="btn btn-block btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
-                </div>
-            </h:form>
+            <div class="form-group pt-2">
+                <p:commandButton class="btn btn-block btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
+            </div>
 
 
 

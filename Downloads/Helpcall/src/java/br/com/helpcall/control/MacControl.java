@@ -21,6 +21,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import br.com.helpcall.dao.QuartoDao;
 import br.com.helpcall.model.Quarto;
+import br.com.helpcall.util.Mensagens;
+import org.hibernate.exception.ConstraintViolationException;
 
 /**
  *
@@ -72,6 +74,9 @@ public class MacControl implements Serializable {
     }
 
     public Quarto getQuarto() {
+        if(quarto == null){
+            quarto = new Quarto();
+        }
         return quarto;
     }
 
@@ -97,20 +102,33 @@ public class MacControl implements Serializable {
         try {
             macDao = new MacDaoImpl();
             session = HibernateUtil.abreConexao();
+            
             mac.setQuartoId(quarto);
             mac.setStatus("1");
-            if (verifcaDados(mac, session)) {
+            if (macDao.listarPorLeito(mac, session)) {
                 macDao.salvarOuAlterar(mac, session);
-
+                Mensagens.salvoComSucesso();
             } else {
                 System.out.println("Leito já possui controle");
+                Mensagens.erroCadastro();
             }
-            session.close();
+            
+            
             quarto = new Quarto();
             mac = new Mac();
+        } catch (ConstraintViolationException ex) {
+            System.out.println("Erro ao cadastrar " + ex.getMessage());
+            if(ex.getCause().toString().contains(mac.getMacadress())){
+                Mensagens.erroDuplicado("O MAC Address " + mac.getMacadress());
+            }
+            
         } catch (HibernateException e) {
             System.out.println("Erro ao cadastrar " + e.getMessage());
+            
+        }finally{
+            session.close();
         }
+        
         return "";
     }
 
@@ -121,7 +139,7 @@ public class MacControl implements Serializable {
         List<Quarto> quartoList = quartoDao.listarTodos(session);
         session.close();
         for (Quarto q : quartoList) {
-            quartos.add(new SelectItem((q.getQuarto()), q.getQuarto()));
+            quartos.add(new SelectItem((q.getId()), q.getQuarto()));
         }
 
     }
@@ -140,10 +158,5 @@ public class MacControl implements Serializable {
     }
 
   
-
-    private boolean verifcaDados(Mac mac, Session session) {
-        List<Mac> list = macDao.listarPorLeito(mac, session);
-        return list.isEmpty();
-    }
 
 }

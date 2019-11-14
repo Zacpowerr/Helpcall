@@ -26,6 +26,11 @@ public class Mensagens {
 
     public static void erroCadastro() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagemErroCadastro, ""));
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagemErroCadastro, ""));
+    }
+
+    public static void erroDuplicado(String valorCampo) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, valorCampo + " já está cadastrado", ""));
     }
 }

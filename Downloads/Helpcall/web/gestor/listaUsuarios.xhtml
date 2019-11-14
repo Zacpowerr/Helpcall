@@ -25,11 +25,18 @@
                                         </thead>
                                         <tbody>
                                             <ui:repeat value="#{usuarioC.usuarios}" var="usuario">
-                                                <h:panelGroup>
-                                                    <tr>
-                                                        <td>#{usuario.login}</td>
-                                                    </tr>
-                                                </h:panelGroup>
+                                                <h:form>
+                                                    <h:panelGroup>
+                                                        <tr>
+                                                            <td>#{usuario.login}</td>
+                                                            <td>
+                                                                <h:commandLink actionListener="#{usuarioC.teste()}" >  <h:outputText value="Ativo" rendered="#{usuario.enable == true}"  /></h:commandLink>
+                                                                <h:outputText value="Inativo" rendered="#{usuario.enable == false}" />
+                                                            </td>
+                                                        </tr>
+
+                                                    </h:panelGroup>
+                                                </h:form>
                                             </ui:repeat>
                                         </tbody>
                                     </table>

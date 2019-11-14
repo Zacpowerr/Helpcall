@@ -17,5 +17,7 @@ import org.hibernate.Session;
 public interface QuartoDao extends BaseDao<Quarto, Long> {
 
     List<Quarto> listarTodos(Session session) throws HibernateException;
+    
+    
 
 }

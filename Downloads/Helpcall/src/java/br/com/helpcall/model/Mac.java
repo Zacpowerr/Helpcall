@@ -45,7 +45,7 @@ public class Mac implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "macadress")
+    @Column(name = "macadress", unique = true)
     private String macadress;
     @Column(name = "leito")
     private String leito;

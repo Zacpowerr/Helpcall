@@ -19,22 +19,11 @@ import br.com.helpcall.model.Quarto;
 public class QuartoDaoImpl extends BaseDaoImpl<Quarto, Long> implements QuartoDao {
 
     public QuartoDaoImpl() {
-        System.out.println("Aquiiiiiiiiiiii");
-    }
-    
+    }    
     
 
     @Override
     public List<Quarto> listarTodos(Session session) throws HibernateException {
         return session.createQuery("from Quarto").list();
-    }
-
-    
-    public static void main(String[] args) {
-        QuartoDaoImpl daoImpl = new QuartoDaoImpl();
-        Session session = HibernateUtil.abreConexao();
-        
-        daoImpl.listarTodos(session);
-        session.close();
     }
 }
