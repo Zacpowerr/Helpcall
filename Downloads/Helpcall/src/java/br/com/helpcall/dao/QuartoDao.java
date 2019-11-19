@@ -18,6 +18,8 @@ public interface QuartoDao extends BaseDao<Quarto, Long> {
 
     List<Quarto> listarTodos(Session session) throws HibernateException;
     
+    Quarto pesquisarPorID(Long id, Session session) throws HibernateException;
+    
     
 
 }

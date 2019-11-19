@@ -74,7 +74,7 @@ public class MacControl implements Serializable {
     }
 
     public Quarto getQuarto() {
-        if(quarto == null){
+        if (quarto == null) {
             quarto = new Quarto();
         }
         return quarto;
@@ -83,8 +83,8 @@ public class MacControl implements Serializable {
     public void setQuarto(Quarto quarto) {
         this.quarto = quarto;
     }
-    
-      public List<SelectItem> getQuartos() {
+
+    public List<SelectItem> getQuartos() {
         return quartos;
     }
 
@@ -95,40 +95,36 @@ public class MacControl implements Serializable {
     public void setNumCombo(int numCombo) {
         this.numCombo = numCombo;
     }
-    
-    
 
     public String salvar() {
         try {
             macDao = new MacDaoImpl();
             session = HibernateUtil.abreConexao();
-            
+
             mac.setQuartoId(quarto);
             mac.setStatus("1");
-            if (macDao.listarPorLeito(mac, session)) {
+            if ((macDao.listarPorLeito(mac, session)) && verif(quarto.getId(), session)) {
                 macDao.salvarOuAlterar(mac, session);
                 Mensagens.salvoComSucesso();
             } else {
-                System.out.println("Leito já possui controle");
                 Mensagens.erroCadastro();
             }
-            
-            
+
             quarto = new Quarto();
             mac = new Mac();
         } catch (ConstraintViolationException ex) {
             System.out.println("Erro ao cadastrar " + ex.getMessage());
-            if(ex.getCause().toString().contains(mac.getMacadress())){
+            if (ex.getCause().toString().contains(mac.getMacadress())) {
                 Mensagens.erroDuplicado("O MAC Address " + mac.getMacadress());
             }
-            
+
         } catch (HibernateException e) {
             System.out.println("Erro ao cadastrar " + e.getMessage());
-            
-        }finally{
+
+        } finally {
             session.close();
         }
-        
+
         return "";
     }
 
@@ -157,6 +153,23 @@ public class MacControl implements Serializable {
         return "gestor/listaControles";
     }
 
-  
+    public boolean verif(Long quartoId, Session session) {
+        session = HibernateUtil.abreConexao();
+        macDao = new MacDaoImpl();
+        mac = new Mac();
+        QuartoDao quartoDao = new QuartoDaoImpl();
+        quarto = quartoDao.pesquisarPorID(quartoId, session);
+        int limite = quarto.getLimiteControle();
+        mac.setQuartoId(quarto);
+        long totmacs = macDao.ContarMacsPorQuarto(quarto.getId(), session);
+        session.close();
+
+        if (totmacs < limite) {
+            return true;
+        }
+        Mensagens.erroCadLimControle();
+        return false;
+
+    }
 
 }
