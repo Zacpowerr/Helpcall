@@ -103,11 +103,10 @@ public class MacControl implements Serializable {
 
             mac.setQuartoId(quarto);
             mac.setStatus("1");
-            if (macDao.listarPorLeito(mac, session)) {
+            if ((macDao.listarPorLeito(mac, session)) && verif(quarto.getId(), session)) {
                 macDao.salvarOuAlterar(mac, session);
                 Mensagens.salvoComSucesso();
             } else {
-                System.out.println("Leito já possui controle");
                 Mensagens.erroCadastro();
             }
 
@@ -154,12 +153,30 @@ public class MacControl implements Serializable {
         return "gestor/listaControles";
     }
 
+    public boolean verif(Long quartoId, Session session) {
+        session = HibernateUtil.abreConexao();
+        macDao = new MacDaoImpl();
+        mac = new Mac();
+        QuartoDao quartoDao = new QuartoDaoImpl();
+        quarto = quartoDao.pesquisarPorID(quartoId, session);
+        int limite = quarto.getLimiteControle();
+        mac.setQuartoId(quarto);
+        long totmacs = macDao.ContarMacsPorQuarto(quarto.getId(), session);
+        session.close();
+
+        if (totmacs < limite) {
+            return true;
+        }
+        Mensagens.erroCadLimControle();
+        return false;
+
+    }
+
     public void editar() {
-        
+
         mac.setQuartoId(quarto);
         System.out.println(mac.getQuartoId().getId());
         System.out.println(mac.getLeito());
         System.out.println(mac.getStatus());
     }
-
 }

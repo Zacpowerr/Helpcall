@@ -30,6 +30,7 @@ public class MacDaoImpl extends BaseDaoImpl<Mac, String> implements MacDao {
         Query consulta = session.createQuery("from Mac where quarto_id = :quarto_id");
         consulta.setParameter("quarto_id", quartoId);
         return consulta.list();
+       
     }
 
     @Override
@@ -41,22 +42,13 @@ public class MacDaoImpl extends BaseDaoImpl<Mac, String> implements MacDao {
         return mac2 == null;
     }
 
-    public static void main(String[] args) {
-        MacDaoImpl daoImpl = new MacDaoImpl();
-        Quarto quarto = new Quarto(1L, "A");
-        Mac mac = new Mac(null, "macadress");
-        mac.setLeito("3");
-        mac.setQuartoId(quarto);
-        Session session = HibernateUtil.abreConexao();
 
-        try {
-            boolean verifica = daoImpl.listarPorLeito(mac, session);
-            session.close();
-            System.out.println(verifica);
-        } catch (HibernateException e) {
-            System.out.println("Erro ooooo " + e.getMessage());
-        }
-
+    @Override
+    public long ContarMacsPorQuarto(Long quartoId, Session session) throws HibernateException {
+       Query consulta = session.createQuery("select count(m.id)from Mac m where quarto_id = :quarto_id");
+       consulta.setParameter("quarto_id", quartoId);
+       return (Long) consulta.uniqueResult();
+        
     }
 
 }

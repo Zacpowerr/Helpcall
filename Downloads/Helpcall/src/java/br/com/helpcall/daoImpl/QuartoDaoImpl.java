@@ -26,4 +26,9 @@ public class QuartoDaoImpl extends BaseDaoImpl<Quarto, Long> implements QuartoDa
     public List<Quarto> listarTodos(Session session) throws HibernateException {
         return session.createQuery("from Quarto").list();
     }
+
+    @Override
+    public Quarto pesquisarPorID(Long id, Session session) throws HibernateException {
+        return (Quarto) session.get(Quarto.class, id);
+    }
 }
