@@ -4,6 +4,7 @@ import br.com.helpcall.dao.HibernateUtil;
 import br.com.helpcall.dao.UsuarioDao;
 import br.com.helpcall.daoImpl.UsuarioDaoImpl;
 import br.com.helpcall.model.Usuario;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import org.hibernate.HibernateException;
@@ -15,7 +16,7 @@ import org.springframework.security.core.userdetails.User;
 
 @ManagedBean
 @ViewScoped
-public class UsuarioLogadoControl {
+public class UsuarioLogadoControl implements Serializable {
 
     private Usuario usuario;
     private Session session;

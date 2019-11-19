@@ -26,7 +26,7 @@
                     <p:inputText  class="form-control form-control-lg" id="pass1" type="password" required="true" requiredMessage="Campo 'Senha' obrigatório" placeholder="Senha" value="#{usuarioC.usuario.senha}" />
                 </div>
                 <div class="form-group">
-                    <p:inputText  class="form-control form-control-lg" type="password" required="true" requiredMessage="Campo 'Confirmar senha' obrigatório" placeholder="Confirmar senha" />
+                    <p:inputText  class="form-control form-control-lg" type="password" required="true" requiredMessage="Campo 'Confirmar senha' obrigatório" placeholder="Confirmar senha" value="#{usuarioC.confirmaSenha}" />
                 </div>
                 <div class="form-group pt-2">
                     <p:commandButton class="btn btn-block btn-primary" value="Salvar"  ajax="false" action="#{usuarioC.salvar()}" />

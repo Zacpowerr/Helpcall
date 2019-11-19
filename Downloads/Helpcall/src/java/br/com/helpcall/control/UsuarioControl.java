@@ -33,10 +33,12 @@ public class UsuarioControl implements Serializable {
     private String receiver;
     private String subject;
     private String message;
+    private String confirmaSenha;
 
     public UsuarioControl(Usuario usuario, UsuarioDao usuarioDao) {
         this.usuario = usuario;
         this.usuarioDao = usuarioDao;
+
     }
 
     public UsuarioControl() {
@@ -48,8 +50,8 @@ public class UsuarioControl implements Serializable {
         }
         return usuario;
     }
-    
-    public void teste(){
+
+    public void teste() {
         System.out.println("chegou aquiiiiiiii ");
     }
 
@@ -69,31 +71,51 @@ public class UsuarioControl implements Serializable {
         return usuarios;
     }
 
-    public void salvar() {
-        subject = "Cadastro no sistema Helpcall";
-        message = "Bem vindo ao sistema Helpcall";
-        try {
-            usuarioDao = new UsuarioDaoImpl();
-            session = HibernateUtil.abreConexao();
-            Perfil perfil = usuarioDao.carregarGestor(session);
-            usuario.setPerfilId(perfil);
-            usuario.setEnable(true);
-            usuarioDao.salvarOuAlterar(usuario, session);
-            sendMail = new SendMail();
-            receiver = usuario.getLogin();
-            sendMail.sendEmail(receiver, subject, message);
-            Mensagens.salvoComSucesso();
-            session.close();
-            usuario = new Usuario();
+    public String getConfirmaSenha() {
+        return confirmaSenha;
+    }
 
-        } catch (HibernateException e) {
+    public void setConfirmaSenha(String confirmaSenha) {
+        this.confirmaSenha = confirmaSenha;
+    }
+
+    public void salvar() {
+        if (usuario.getSenha().equals(confirmaSenha)) {
+
+            try {
+                usuarioDao = new UsuarioDaoImpl();
+                session = HibernateUtil.abreConexao();
+                Perfil perfil = usuarioDao.carregarGestor(session);
+                usuario.setPerfilId(perfil);
+                usuario.setEnable(true);
+                usuarioDao.salvarOuAlterar(usuario, session);
+                enviarEmail(false);
+                Mensagens.salvoComSucesso();
+                session.close();
+                usuario = new Usuario();
+
+            } catch (HibernateException e) {
+                Mensagens.erroCadastro();
+                enviarEmail(true);
+                System.out.println("Erro ao cadastrar " + e.getMessage());
+            }
+        } else {
             Mensagens.erroCadastro();
-            message = "Erro ao cadastrar sistema Helpcall";
-            receiver = usuario.getLogin();
-            sendMail.sendEmail(receiver, subject, message);
-            System.out.println("Erro ao cadastrar " + e.getMessage());
         }
-//        return "tabelaChamados";
+        confirmaSenha = "";
+    }
+
+    private void enviarEmail(boolean err) {
+        sendMail = new SendMail();
+        receiver = usuario.getLogin();
+        if (err) {
+            message = "Erro ao cadastrar sistema Helpcall";
+            subject = "Cadastro nao efetuado";
+        } else {
+            subject = "Cadastro no sistema Helpcall";
+            message = "Bem vindo ao sistema Helpcall";
+        }
+        sendMail.sendEmail(receiver, subject, message);
     }
 
     public String listar() {
