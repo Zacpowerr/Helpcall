@@ -26,17 +26,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <ui:repeat value="#{macC.macs}" var="controle">
+                                            <ui:repeat value="#{macC.macs}" var="mac">
                                                 <h:panelGroup>
-                                                    <tr>
-                                                        <td>#{controle.macadress}</td>
-                                                        <td>#{controle.quartoId.quarto}</td>
-                                                        <td>#{controle.leito}</td>
-                                                    </tr>
+                                                    <h:form>
+
+                                                        <tr>
+                                                            <td>#{mac.macadress}</td>
+                                                            <td>#{mac.quartoId.quarto}</td>
+                                                            <td>#{mac.leito}</td>
+                                                            <td>
+                                                                <h:commandButton value="Editar" action="#{macC.editarPage(mac.id)}" />
+                                                            </td>
+                                                        </tr>
+                                                    </h:form>
                                                 </h:panelGroup>
                                             </ui:repeat>
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
@@ -51,7 +58,7 @@
 
 
     <ui:define name="css">
-       <link rel="stylesheet" href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css"/>
         <link href="../resources/assets/vendor/fonts/circular-std/style.css" rel="stylesheet"/>
         <link rel="stylesheet" href="../resources/assets/libs/css/style.css"/>
         <link rel="stylesheet" href="../resources/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"/>

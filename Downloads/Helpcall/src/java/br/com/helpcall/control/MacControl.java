@@ -39,14 +39,17 @@ public class MacControl implements Serializable {
     private Session session;
     private List<Mac> macs;
     private int numCombo;
+    private int id;
 
     @PostConstruct
     public void inicializar() {
         carregaCboxQuarto();
+
     }
 
     public MacControl() {
         System.out.println("");
+        listar();
     }
 
     public Mac getMac() {
@@ -119,6 +122,7 @@ public class MacControl implements Serializable {
             }
 
         } catch (HibernateException e) {
+            Mensagens.erroCadastro();
             System.out.println("Erro ao cadastrar " + e.getMessage());
 
         } finally {
@@ -140,23 +144,26 @@ public class MacControl implements Serializable {
 
     }
 
-    public String listar() {
+    public String listarPage() {
+        listar();
+        return "gestor/listaControles";
+    }
+
+    private void listar() {
         try {
             macDao = new MacDaoImpl();
             session = HibernateUtil.abreConexao();
             macs = macDao.listarTodos(session);
             session.close();
-
         } catch (HibernateException e) {
             System.out.println("Erro ao listar " + e.getMessage());
         }
-        return "gestor/listaControles";
+
     }
 
     public boolean verif(Long quartoId, Session session) {
         session = HibernateUtil.abreConexao();
         macDao = new MacDaoImpl();
-        mac = new Mac();
         QuartoDao quartoDao = new QuartoDaoImpl();
         quarto = quartoDao.pesquisarPorID(quartoId, session);
         int limite = quarto.getLimiteControle();
@@ -172,9 +179,19 @@ public class MacControl implements Serializable {
 
     }
 
+    public String editarPage(int index) {
+        session = HibernateUtil.abreConexao();
+        macDao = new MacDaoImpl();
+        mac = macDao.listarPorId(index, session);
+        return "/editControle.xhtml";
+    }
+
     public void editar() {
 
-        mac.setQuartoId(quarto);
+        if (verif(quarto.getId(), session)) {
+            mac.setQuartoId(quarto);
+            macDao.salvarOuAlterar(mac, session);
+        }
         System.out.println(mac.getQuartoId().getId());
         System.out.println(mac.getLeito());
         System.out.println(mac.getStatus());
