@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import br.com.helpcall.dao.QuartoDao;
 import br.com.helpcall.model.Quarto;
 import br.com.helpcall.util.Mensagens;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.exception.ConstraintViolationException;
 
 /**
@@ -29,7 +29,7 @@ import org.hibernate.exception.ConstraintViolationException;
  * @author Thaisa
  */
 @ManagedBean(name = "macC")
-@ViewScoped
+@SessionScoped
 public class MacControl implements Serializable {
 
     private Mac mac;
@@ -39,7 +39,6 @@ public class MacControl implements Serializable {
     private Session session;
     private List<Mac> macs;
     private int numCombo;
-    private int id;
 
     @PostConstruct
     public void inicializar() {
@@ -106,7 +105,7 @@ public class MacControl implements Serializable {
             mac.setQuartoId(quarto);
             mac.setStatus("1");
             session = HibernateUtil.abreConexao();
-            if (verifLocalMAC() && verifLimite(quarto.getId())) {
+            if (verifLocalMAC() && verifLimite(quarto.getId(), session)) {
                 macDao.salvarOuAlterar(mac, session);
                 Mensagens.salvoComSucesso();
             }
@@ -160,17 +159,19 @@ public class MacControl implements Serializable {
     }
 
     public boolean verifLocalMAC() {
+        session = HibernateUtil.abreConexao();
         if (!macDao.listarPorLeito(mac, session)) {
             Mensagens.erroCadLocalControle();
+            session.close();
             return false;
 
         }
-
+        session.close();
         return true;
 
     }
 
-    public boolean verifLimite(Long quartoId) {
+    public boolean verifLimite(Long quartoId, Session session) {
         macDao = new MacDaoImpl();
         QuartoDao quartoDao = new QuartoDaoImpl();
         quarto = quartoDao.pesquisarPorID(quartoId, session);
@@ -188,7 +189,8 @@ public class MacControl implements Serializable {
         session = HibernateUtil.abreConexao();
         macDao = new MacDaoImpl();
         mac = macDao.listarPorId(index, session);
-        return "/editControle.xhtml";
+        session.close();
+        return "editarControle.xhtml";
     }
 
     public void verificarMacUnico() {
@@ -199,18 +201,25 @@ public class MacControl implements Serializable {
             if (mac2 != null) {
                 Mensagens.erroCadUnico("O MAC address");
             }
-        } catch (Exception e) {
+        } catch (HibernateException e) {
         } finally {
             session.close();
         }
     }
 
     public void editar() {
+        session = HibernateUtil.abreConexao();
+        try {
+            if (verifLimite(mac.getQuartoId().getId(), session)) {
 
-//        if (verif(quarto.getId(), session)) {
-//            mac.setQuartoId(quarto);
-//            macDao.salvarOuAlterar(mac, session);
-//        }
+                macDao.salvarOuAlterar(mac, session);
+            }
+        } catch (HibernateException e) {
+            System.out.println("Erro ao editar " + e.getMessage());
+        } finally {
+            session.close();
+        }
+
         System.out.println(mac.getQuartoId().getId());
         System.out.println(mac.getLeito());
         System.out.println(mac.getStatus());
