@@ -5,7 +5,6 @@
  */
 package br.com.helpcall.daoImpl;
 
-import br.com.helpcall.dao.HibernateUtil;
 import br.com.helpcall.dao.UsuarioDao;
 import br.com.helpcall.model.Perfil;
 import java.util.List;
@@ -39,13 +38,7 @@ public class UsuarioDaoImpl extends BaseDaoImpl<Usuario,Long> implements Usuario
         return consulta.list();
     }
     
-    public static void main(String[] args) {
-        UsuarioDaoImpl u = new UsuarioDaoImpl();
-        Session session = HibernateUtil.abreConexao();
-       List<Usuario> gestores =  u.listarGestores(session);
-        session.close();
-    }
-
+   
     @Override
     public Usuario pesquisarPorLogin(String login, Session session) throws HibernateException {
         Query consulta = session.createQuery("from Usuario where login = :login");

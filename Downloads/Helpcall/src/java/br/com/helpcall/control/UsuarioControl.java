@@ -51,10 +51,7 @@ public class UsuarioControl implements Serializable {
         return usuario;
     }
 
-    public void teste() {
-        System.out.println("chegou aquiiiiiiii ");
-    }
-
+    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
@@ -130,26 +127,24 @@ public class UsuarioControl implements Serializable {
         }
         return "/gestor/listaUsuarios";
     }
-
-    public void logar() {
-        try {
+    
+    public void desAtivar(){
+        try{
             usuarioDao = new UsuarioDaoImpl();
             session = HibernateUtil.abreConexao();
-            // Logar!!!!!!!!!!!
+            usuario = new Usuario();
+            if (usuario.getEnable()){
+            
+            usuario.setEnable(false);
+            }else{
+            usuario.setEnable(true);
+            }
+        }catch (HibernateException e) {
+            System.out.println("Erro ao desAtivar " + e.getMessage());
+        }finally{
             session.close();
-
-        } catch (HibernateException e) {
-            System.out.println("Erro ao logar " + e.getMessage());
         }
-
+        
     }
 
-//    public void verificarSenha() {
-//        FacesContext contexto = FacesContext.getCurrentInstance();
-//
-//        if (!(usuario.getSenha().length() == 6)) {
-//            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Senha Inválida", "Erro: senha deve conter 6 dígitos"));
-//        }
-//
-//    }
 }

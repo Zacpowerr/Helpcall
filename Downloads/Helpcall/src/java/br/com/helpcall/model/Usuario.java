@@ -81,7 +81,7 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public boolean isEnable() {
+    public boolean getEnable() {
         return enable;
     }
 
