@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../padrao.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="css">
+        
+    </ui:define>
+    <ui:define name="centro">
+        <div class="card col-lg-6 mx-auto mt-5">
+            <h5 class="card-header">Edição de controles</h5>
+            <div class="card-body">
+                <h:form>
+                    <div class="form-group">
+                        <label for="inputText4" class="col-form-label">Leito</label>
+                        <h:inputText id="inputText4" value="#{macC.mac.leito}" class="form-control" autocomplete="false" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-select">Quarto</label>
+                        <h:selectOneMenu class="form-control"  value="#{macC.quarto.id}" id="input-select">
+                            <f:selectItem itemValue="#{macC.mac.quartoId.quarto}"/>
+                            <f:selectItems value="#{macC.quartos}"  /> 
+                        </h:selectOneMenu>
+                    </div>
+                    <label class="custom-control custom-checkbox custom-control-inline">
+                        <h:selectBooleanCheckbox 
+                            value="#{macC.mac.status}" class="custom-control-input" /><span class="custom-control-label">Option 1</span>
+                    </label>
+                    <div class="col-sm-12 ">
+                        <p class="text-right">
+                            <h:commandButton type="submit" class="btn btn-space btn-primary" value="Enviar" action="#{macC.editar()}"></h:commandButton>
+                            <button class="btn btn-space btn-secondary">Cancel</button>
+                        </p>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

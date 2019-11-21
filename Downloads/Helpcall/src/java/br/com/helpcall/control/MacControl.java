@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import br.com.helpcall.dao.QuartoDao;
 import br.com.helpcall.model.Quarto;
 import br.com.helpcall.util.Mensagens;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.exception.ConstraintViolationException;
 
 /**
@@ -29,7 +29,7 @@ import org.hibernate.exception.ConstraintViolationException;
  * @author Thaisa
  */
 @ManagedBean(name = "macC")
-@ViewScoped
+@SessionScoped
 public class MacControl implements Serializable {
 
     private Mac mac;
@@ -183,7 +183,7 @@ public class MacControl implements Serializable {
         session = HibernateUtil.abreConexao();
         macDao = new MacDaoImpl();
         mac = macDao.listarPorId(index, session);
-        return "/editControle.xhtml";
+        return "editarControle.xhtml";
     }
 
     public void editar() {
