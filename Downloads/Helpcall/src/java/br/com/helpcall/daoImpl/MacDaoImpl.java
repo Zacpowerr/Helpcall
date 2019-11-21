@@ -56,4 +56,13 @@ public class MacDaoImpl extends BaseDaoImpl<Mac, String> implements MacDao {
         return (Mac) session.getNamedQuery("Mac.findById").setParameter("id", id).uniqueResult();
     }
 
+    @Override
+    public Mac verificarMacUnico(String mac, Session session) throws HibernateException {
+        
+        Query consulta = session.createQuery("from Mac m where m.macadress = :mac");
+        consulta.setParameter("mac", mac);
+        return (Mac) consulta.uniqueResult();
+    }
+    
+    
 }
