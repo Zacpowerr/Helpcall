@@ -102,15 +102,13 @@ public class MacControl implements Serializable {
     public String salvar() {
         try {
             macDao = new MacDaoImpl();
-            session = HibernateUtil.abreConexao();
 
             mac.setQuartoId(quarto);
             mac.setStatus("1");
-            if ((macDao.listarPorLeito(mac, session)) && verif(quarto.getId(), session)) {
+            session = HibernateUtil.abreConexao();
+            if (verifLocalMAC() && verifLimite(quarto.getId())) {
                 macDao.salvarOuAlterar(mac, session);
                 Mensagens.salvoComSucesso();
-            } else {
-                Mensagens.erroCadastro();
             }
 
             quarto = new Quarto();
@@ -161,22 +159,29 @@ public class MacControl implements Serializable {
 
     }
 
-    public boolean verif(Long quartoId, Session session) {
-        session = HibernateUtil.abreConexao();
+    public boolean verifLocalMAC() {
+        if (!macDao.listarPorLeito(mac, session)) {
+            Mensagens.erroCadLocalControle();
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+    public boolean verifLimite(Long quartoId) {
         macDao = new MacDaoImpl();
         QuartoDao quartoDao = new QuartoDaoImpl();
         quarto = quartoDao.pesquisarPorID(quartoId, session);
         int limite = quarto.getLimiteControle();
         mac.setQuartoId(quarto);
         long totmacs = macDao.ContarMacsPorQuarto(quarto.getId(), session);
-        session.close();
-
         if (totmacs < limite) {
             return true;
         }
         Mensagens.erroCadLimControle();
         return false;
-
     }
 
     public String editarPage(int index) {
@@ -186,12 +191,26 @@ public class MacControl implements Serializable {
         return "editarControle.xhtml";
     }
 
+    public void verificarMacUnico() {
+        session = HibernateUtil.abreConexao();
+        try {
+            macDao = new MacDaoImpl();
+            Mac mac2 = macDao.verificarMacUnico(mac.getMacadress(), session);
+            if (mac2 != null) {
+                Mensagens.erroCadUnico("O MAC address");
+            }
+        } catch (Exception e) {
+        } finally {
+            session.close();
+        }
+    }
+
     public void editar() {
 
-        if (verif(quarto.getId(), session)) {
-            mac.setQuartoId(quarto);
-            macDao.salvarOuAlterar(mac, session);
-        }
+//        if (verif(quarto.getId(), session)) {
+//            mac.setQuartoId(quarto);
+//            macDao.salvarOuAlterar(mac, session);
+//        }
         System.out.println(mac.getQuartoId().getId());
         System.out.println(mac.getLeito());
         System.out.println(mac.getStatus());

@@ -20,6 +20,7 @@ public class Mensagens {
     public static final String mensagemSucessoCadastro = "Cadastro efetuado com sucesso!";
     public static final String mensagemSalvamentoSucesso = "O item foi salvo com sucesso!";
     public static final String mensagemErroSalvamento = "Ocorreu um erro ao salvar!";
+    public static final String mensagemErroCadLocalControle = "No local informado já existe controle cadastrado";
 
     public static void salvoComSucesso() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -35,6 +36,17 @@ public class Mensagens {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagemErroCadastro, ""));
     }
+    
+     public static void erroCadLocalControle() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagemErroCadLocalControle, ""));
+    }
+    
+    public static void erroCadUnico(String msg) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg + " já existe.", ""));
+    }
+    
     
     public static void erroCadLimControle() {
         FacesContext facesContext = FacesContext.getCurrentInstance();

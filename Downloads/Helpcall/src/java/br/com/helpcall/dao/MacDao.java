@@ -25,5 +25,8 @@ public interface MacDao extends BaseDao<Mac, String> {
     public long ContarMacsPorQuarto(Long quartoId, Session session) throws HibernateException;
 
     public Mac listarPorId(int id, Session session) throws HibernateException;
+    
+    
+    Mac verificarMacUnico(String mac, Session session) throws HibernateException;
 
 }
