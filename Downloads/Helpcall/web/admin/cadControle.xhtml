@@ -19,37 +19,26 @@
                 </div>
                 <div class="card-body">
                 </div>
-                <div class="form-group">
+                <div class="form-group mx-4">
                     <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'MAC Address' obrigatório"
-                                  placeholder="Digite o nº MAC Address" autocomplete="off" value="#{macC.mac.macadress}" >
-                        <f:ajax event="blur" listener="#{macC.verificarMacUnico()}" />
-
-                    </p:inputText>
-
-
+                                  placeholder="Digite o nº MAC Address" autocomplete="off" value="#{macC.mac.macadress}">
+                        <f:ajax event="blur" listener="#{macC.verificarMacUnico()}" /></p:inputText>
                 </div>
-                <div class="form-group">
+                <div class="form-group mx-4">
                     <h:selectOneMenu id="quarto"   value="#{macC.quarto.id}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
                         <f:selectItem itemLabel="Selecione o nº do Quarto" itemValue=""/>
                         <f:selectItems value="#{macC.quartos}"  /> 
                     </h:selectOneMenu>
                 </div>
-                <div class="form-group">
+                <div class="form-group mx-4">
                     <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'Leito' obrigatório" placeholder="Digite o nº do Leito" value="#{macC.mac.leito}" />
                 </div>    
-                <!--                <div class="form-group">
-                                    <p:selectBooleanButton id="status" value="# {macC.mac.status}" rendered="# {macC.mac.macadress!=null}" 
-                                                           onLabel="Ativo" offLabel="Inativo" onIcon="pi pi-check" offIcon="pi pi-times"  >
-                                        <p:ajax  listener="# {macC.ativar}" />
-                                    </p:selectBooleanButton>
-                
-                
-                                </div>-->
+                <div class="form-group pt-2 mx-auto">
+                    <p:commandButton class="btn btn-block btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
+                </div>
             </div>
 
-            <div class="form-group pt-2">
-                <p:commandButton class="btn btn-space btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
-            </div>
+
 
 
 
