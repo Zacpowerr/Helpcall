@@ -15,6 +15,7 @@ import br.com.helpcall.util.Mensagens;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -23,6 +24,7 @@ import org.hibernate.Session;
  * @author Thaisa
  */
 @ManagedBean(name = "usuarioC")
+@SessionScoped
 public class UsuarioControl implements Serializable {
 
     private Usuario usuario;
@@ -35,12 +37,6 @@ public class UsuarioControl implements Serializable {
     private String message;
     private String confirmaSenha;
 
-    public UsuarioControl(Usuario usuario, UsuarioDao usuarioDao) {
-        this.usuario = usuario;
-        this.usuarioDao = usuarioDao;
-
-    }
-
     public UsuarioControl() {
     }
 
@@ -52,29 +48,7 @@ public class UsuarioControl implements Serializable {
     }
 
     
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public UsuarioDao getUsuarioDao() {
-        return usuarioDao;
-    }
-
-    public void setUsuarioDao(UsuarioDao usuarioDao) {
-        this.usuarioDao = usuarioDao;
-    }
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public String getConfirmaSenha() {
-        return confirmaSenha;
-    }
-
-    public void setConfirmaSenha(String confirmaSenha) {
-        this.confirmaSenha = confirmaSenha;
-    }
+    
 
     public void salvar() {
         if (usuario.getSenha().equals(confirmaSenha)) {
@@ -125,14 +99,13 @@ public class UsuarioControl implements Serializable {
         } catch (HibernateException e) {
             System.out.println("Erro ao listar " + e.getMessage());
         }
-        return "/gestor/listaUsuarios";
+        return "/gestor/listaUsuarios.xhtml?faces-redirect=true";
     }
     
-    public void desAtivar(){
+    public void desAtivar(Usuario usuario){
         try{
             usuarioDao = new UsuarioDaoImpl();
             session = HibernateUtil.abreConexao();
-            usuario = new Usuario();
             if (usuario.getEnable()){
             
             usuario.setEnable(false);
@@ -145,6 +118,32 @@ public class UsuarioControl implements Serializable {
             session.close();
         }
         
+    }
+    
+    
+    //getters e setters
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioDao getUsuarioDao() {
+        return usuarioDao;
+    }
+
+    public void setUsuarioDao(UsuarioDao usuarioDao) {
+        this.usuarioDao = usuarioDao;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public String getConfirmaSenha() {
+        return confirmaSenha;
+    }
+
+    public void setConfirmaSenha(String confirmaSenha) {
+        this.confirmaSenha = confirmaSenha;
     }
 
 }
