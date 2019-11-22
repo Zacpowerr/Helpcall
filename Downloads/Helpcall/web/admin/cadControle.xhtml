@@ -23,10 +23,10 @@
                     <p:inputText  class="form-control form-control-lg" required="true" requiredMessage="Campo 'MAC Address' obrigatório"
                                   placeholder="Digite o nº MAC Address" autocomplete="off" value="#{macC.mac.macadress}" >
                         <f:ajax event="blur" listener="#{macC.verificarMacUnico()}" />
-                    
+
                     </p:inputText>
-                    
-                    
+
+
                 </div>
                 <div class="form-group">
                     <h:selectOneMenu id="quarto"   value="#{macC.quarto.id}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
@@ -48,7 +48,7 @@
             </div>
 
             <div class="form-group pt-2">
-                <p:commandButton class="btn btn-block btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
+                <p:commandButton class="btn btn-space btn-primary" value="Salvar"  update="@form" action="#{macC.salvar()}" />
             </div>
 
 

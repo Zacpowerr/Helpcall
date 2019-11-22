@@ -51,7 +51,6 @@ public class UsuarioControl implements Serializable {
         return usuario;
     }
 
-    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
@@ -97,7 +96,7 @@ public class UsuarioControl implements Serializable {
                 System.out.println("Erro ao cadastrar " + e.getMessage());
             }
         } else {
-            Mensagens.erroCadastro();
+            Mensagens.erroSenhasDiferentes();
         }
         confirmaSenha = "";
     }
@@ -127,24 +126,24 @@ public class UsuarioControl implements Serializable {
         }
         return "/gestor/listaUsuarios";
     }
-    
-    public void desAtivar(){
-        try{
+
+    public void desAtivar() {
+        try {
             usuarioDao = new UsuarioDaoImpl();
             session = HibernateUtil.abreConexao();
             usuario = new Usuario();
-            if (usuario.getEnable()){
-            
-            usuario.setEnable(false);
-            }else{
-            usuario.setEnable(true);
+            if (usuario.getEnable()) {
+
+                usuario.setEnable(false);
+            } else {
+                usuario.setEnable(true);
             }
-        }catch (HibernateException e) {
+        } catch (HibernateException e) {
             System.out.println("Erro ao desAtivar " + e.getMessage());
-        }finally{
+        } finally {
             session.close();
         }
-        
+
     }
 
 }

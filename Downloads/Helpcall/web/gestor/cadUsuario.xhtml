@@ -19,16 +19,16 @@
                 </div>
                 <div class="card-body">
                 </div>
-                <div class="form-group">
+                <div class="form-group mx-4">
                     <p:inputText  class="form-control form-control-lg" type="email" required="true" requiredMessage="Campo 'E-mail' obrigatório" placeholder="E-mail" autocomplete="off" value="#{usuarioC.usuario.login}" />
                 </div>
-                <div class="form-group">
+                <div class="form-group mx-4">
                     <p:inputText  class="form-control form-control-lg" id="pass1" type="password" required="true" requiredMessage="Campo 'Senha' obrigatório" placeholder="Senha" value="#{usuarioC.usuario.senha}" />
                 </div>
-                <div class="form-group">
+                <div class="form-group mx-4">
                     <p:inputText  class="form-control form-control-lg" type="password" required="true" requiredMessage="Campo 'Confirmar senha' obrigatório" placeholder="Confirmar senha" value="#{usuarioC.confirmaSenha}" />
                 </div>
-                <div class="form-group pt-2">
+                <div class="form-group pt-2 mx-auto">
                     <p:commandButton class="btn btn-block btn-primary" value="Salvar"  ajax="false" action="#{usuarioC.salvar()}" />
                 </div>
             </div>
