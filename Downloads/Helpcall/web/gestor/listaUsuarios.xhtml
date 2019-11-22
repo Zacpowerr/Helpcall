@@ -30,7 +30,7 @@
                                                         <tr>
                                                             <td>#{usuario.login}</td>
                                                             <td>
-                                                                <h:commandLink actionListener="#{usuarioC.desAtivar()}" >  
+                                                                <h:commandLink actionListener="#{usuarioC.desAtivar(usuario)}" >  
                                                                     <h:outputText value="Ativo" rendered="#{usuario.enable == true}"  />
                                                                     <h:outputText value="Inativo" rendered="#{usuario.enable == false}" />
                                                                 </h:commandLink>

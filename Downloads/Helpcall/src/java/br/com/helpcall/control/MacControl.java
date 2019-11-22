@@ -143,7 +143,7 @@ public class MacControl implements Serializable {
 
     public String listarPage() {
         listar();
-        return "gestor/listaControles";
+        return "/gestor/listaControles.xhtml?faces-redirect=true";
     }
 
     private void listar() {
