@@ -170,6 +170,7 @@ public class MacControl implements Serializable {
         return true;
 
     }
+    
 
     public boolean verifLimite(Long quartoId, Session session) {
         macDao = new MacDaoImpl();
@@ -210,9 +211,9 @@ public class MacControl implements Serializable {
     public void editar() {
         session = HibernateUtil.abreConexao();
         try {
-            if (verifLimite(mac.getQuartoId().getId(), session)) {
-
+            if (verifLocalMAC() && verifLimite(quarto.getId(), session)) {
                 macDao.salvarOuAlterar(mac, session);
+                Mensagens.salvoComSucesso();
             }
         } catch (HibernateException e) {
             System.out.println("Erro ao editar " + e.getMessage());

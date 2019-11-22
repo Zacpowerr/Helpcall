@@ -17,8 +17,8 @@
             <div class="card-body">
                 <h:form>
                     <div class="form-group">
-                        <label for="inputText4" class="col-form-label">Leito</label>
-                        <h:inputText id="inputText4" value="#{macC.mac.leito}" class="form-control" autocomplete="false" />
+                        <label for="mactx" class="col-form-label">MAC Address</label>
+                        <h:inputText id="mactx" value="#{macC.mac.macadress}" class="form-control" disabled="true" />
                     </div>
 
                     <div class="form-group">
@@ -27,6 +27,13 @@
                             <f:selectItem itemValue="#{macC.mac.quartoId.quarto}"/>
                             <f:selectItems value="#{macC.quartos}"  /> 
                         </h:selectOneMenu>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="inputText4" class="col-form-label">Leito</label>
+                        <h:inputText id="inputText4" value="#{macC.mac.leito}" class="form-control" autocomplete="false" >
+                        <f:ajax event="blur" listener="#{macC.verifLocalMAC()}" />
+                        </h:inputText>
                     </div>
 
                     <div class="form-group">
