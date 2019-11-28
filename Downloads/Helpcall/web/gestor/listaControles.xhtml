@@ -2,7 +2,8 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="../padrao.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="centro">
         <h:panelGroup id="tables">
@@ -23,17 +24,23 @@
                                                 <th scope="col">Controle</th>
                                                 <th scope="col">Quarto</th>
                                                 <th scope="col">Leito</th>
+                                                <th scope="col">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <ui:repeat value="#{macC.macs}" var="mac">
                                                 <h:panelGroup>
+                                                    <p:messages  closable="true">
+                                                        <p:autoUpdate  />
+                                                    </p:messages>
                                                     <h:form>
+
 
                                                         <tr>
                                                             <td>#{mac.macadress}</td>
                                                             <td>#{mac.quartoId.quarto}</td>
                                                             <td>#{mac.leito}</td>
+                                                            <td>#{mac.status == 1 ? 'Ativo' : 'Inativo'}</td>
                                                             <td>
                                                                 <h:commandButton  class="btn btn-space btn-primary" value="Editar" action="#{macC.editarPage(mac.id)}" />
                                                             </td>

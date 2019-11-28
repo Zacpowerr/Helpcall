@@ -58,44 +58,22 @@ public class MacControl implements Serializable {
         return mac;
     }
 
-    public void setMac(Mac mac) {
-        this.mac = mac;
-    }
-
-    public MacDao getMacDao() {
-
-        return macDao;
-    }
-
-    public void setMacDao(MacDao macDao) {
-        this.macDao = macDao;
-    }
-
-    public List<Mac> getMacs() {
-        return macs;
-    }
-
-    public Quarto getQuarto() {
-        if (quarto == null) {
-            quarto = new Quarto();
+        public String editar() {
+        session = HibernateUtil.abreConexao();
+        mac.setQuartoId(quarto);
+        try {
+            if (verifLocalMAC() && verifLimite(quarto.getId(), session)) {
+                macDao.salvarOuAlterar(mac, session);
+            }
+        } catch (HibernateException e) {
+            System.out.println("Erro ao editar " + e.getMessage());
+            
+        } finally {
+            session.close();
         }
-        return quarto;
-    }
-
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
-    }
-
-    public List<SelectItem> getQuartos() {
-        return quartos;
-    }
-
-    public int getNumCombo() {
-        return numCombo;
-    }
-
-    public void setNumCombo(int numCombo) {
-        this.numCombo = numCombo;
+        listar();
+        Mensagens.salvoComSucesso();
+        return "/gestor/listaControles.xhtml?faces-redirect=true";
     }
 
     public String salvar() {
@@ -159,14 +137,14 @@ public class MacControl implements Serializable {
     }
 
     public boolean verifLocalMAC() {
-        session = HibernateUtil.abreConexao();
+//        session = HibernateUtil.abreConexao();
         if (!macDao.listarPorLeito(mac, session)) {
             Mensagens.erroCadLocalControle();
-            session.close();
+//            session.close();
             return false;
 
         }
-        session.close();
+//        session.close();
         return true;
 
     }
@@ -190,8 +168,9 @@ public class MacControl implements Serializable {
         session = HibernateUtil.abreConexao();
         macDao = new MacDaoImpl();
         mac = macDao.listarPorId(index, session);
+        quarto = mac.getQuartoId();
         session.close();
-        return "editarControle.xhtml";
+        return "/gestor/editarControle.xhtml?faces-redirect=true";
     }
 
     public void verificarMacUnico() {
@@ -208,21 +187,47 @@ public class MacControl implements Serializable {
         }
     }
 
-    public void editar() {
-        session = HibernateUtil.abreConexao();
-        try {
-            if (verifLocalMAC() && verifLimite(quarto.getId(), session)) {
-                macDao.salvarOuAlterar(mac, session);
-                Mensagens.salvoComSucesso();
-            }
-        } catch (HibernateException e) {
-            System.out.println("Erro ao editar " + e.getMessage());
-        } finally {
-            session.close();
-        }
 
-        System.out.println(mac.getQuartoId().getId());
-        System.out.println(mac.getLeito());
-        System.out.println(mac.getStatus());
+    
+    
+//    getter e setter
+    public void setMac(Mac mac) {
+        this.mac = mac;
+    }
+
+    public MacDao getMacDao() {
+
+        return macDao;
+    }
+
+    public void setMacDao(MacDao macDao) {
+        this.macDao = macDao;
+    }
+
+    public List<Mac> getMacs() {
+        return macs;
+    }
+
+    public Quarto getQuarto() {
+        if (quarto == null) {
+            quarto = new Quarto();
+        }
+        return quarto;
+    }
+
+    public void setQuarto(Quarto quarto) {
+        this.quarto = quarto;
+    }
+
+    public List<SelectItem> getQuartos() {
+        return quartos;
+    }
+
+    public int getNumCombo() {
+        return numCombo;
+    }
+
+    public void setNumCombo(int numCombo) {
+        this.numCombo = numCombo;
     }
 }
