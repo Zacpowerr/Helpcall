@@ -21,15 +21,15 @@ public class ChamadoDaoImpl extends BaseDaoImpl<Chamado, Long>
 
     @Override
     public List<Chamado> listarPorMes(Integer month, Session session) throws HibernateException {
-        Query consulta = session.createQuery("from Chamado where MONTH(horainit) = :month and YEAR(horainit) = YEAR(now())");
+        Query consulta = session.createQuery("from Chamado where MONTH(hora_init) = :month and YEAR(hora_init) = YEAR(now())");
         consulta.setParameter("month", month);
         return consulta.list();
 
     }
 
     @Override
-    public List<Chamado> listarPorAno(Integer year, Session session) throws HibernateException {
-        Query consulta = session.createQuery("from Chamado where YEAR(horainit) = YEAR(:year)");
+    public List<Chamado> listarPorAno(String year, Session session) throws HibernateException {
+        Query consulta = session.createQuery("from Chamado where YEAR(hora_init) = YEAR(:year)");
         consulta.setParameter("year", year);
         return consulta.list();
     }
@@ -44,12 +44,12 @@ public class ChamadoDaoImpl extends BaseDaoImpl<Chamado, Long>
         return session.createQuery("from Chamado order by id DESC").setMaxResults(10).list();
     }
 
-    public File gerarPdf(Integer year, Integer month, Session session) throws IOException {
+    public File gerarPdf(String year, Integer month, Session session) throws IOException {
         ReportGenerator generator = new ReportGenerator();
         return generator.gerarPdf(year, month, session);
     }
 
-    public WritableWorkbook GerarExcel(Integer year, Integer month, Session session) {
+    public WritableWorkbook GerarExcel(String year, Integer month, Session session) {
         ReportGenerator generator = new ReportGenerator();
         return generator.GerarExcel(year, month, session);
     }

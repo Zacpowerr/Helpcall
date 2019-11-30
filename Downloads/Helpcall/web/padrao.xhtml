@@ -13,7 +13,7 @@
 
         <!-- Bootstrap CSS -->
         <ui:insert name="css">
-            
+
         </ui:insert>
         <h:outputStylesheet library="assets/libs/css" name="style.css" />
         <h:outputStylesheet library="assets/vendor/fonts/fontawesome/css" name="fontawesome-all.css" />
@@ -174,10 +174,10 @@
                                                                             <h:form>
                                                                                 <ul class="nav flex-column">
                                                                                     <li class="nav-item">
-                                                                                        <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarPdf('','2019')}" />
-                                                                                    </li>
-                                                                                    <li class="nav-item">
-                                                                                        <p:commandLink class="nav-link" value="2020" action="#{chamadoC.gerarPdf('','2020')}" />
+                                                                                        <li class="nav-item">
+                                                                                            <p:commandLink class="nav-link" value="2018" action="#{chamadoC.gerarPdf('','2018-01-01')}" />
+                                                                                        </li>
+                                                                                        <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarPdf('','2019-01-01')}" />
                                                                                     </li>
                                                                                 </ul>
                                                                             </h:form>
@@ -240,10 +240,10 @@
                                                                             <h:form>
                                                                                 <ul class="nav flex-column">
                                                                                     <li class="nav-item">
-                                                                                        <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarExcel('','2019')}" />
+                                                                                        <p:commandLink class="nav-link" value="2018" action="#{chamadoC.gerarExcel('','2018-01-01')}" />
                                                                                     </li>
                                                                                     <li class="nav-item">
-                                                                                        <p:commandLink class="nav-link" value="2020" action="#{chamadoC.gerarExcel('','2020')}" />
+                                                                                        <p:commandLink class="nav-link" value="2019" action="#{chamadoC.gerarExcel('','2019-01-01')}" />
                                                                                     </li>
                                                                                 </ul>
                                                                             </h:form>     

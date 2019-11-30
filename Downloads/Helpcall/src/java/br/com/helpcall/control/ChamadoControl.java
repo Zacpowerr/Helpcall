@@ -26,7 +26,7 @@ public class ChamadoControl implements Serializable {
     private Session session;
     private List<ChamadoAtivo> listChamadoAtivo;
     private List<Chamado> listTodos;
-    private Integer year;
+    private String year;
     private Integer month;
     private String mensagem;
 
@@ -37,7 +37,6 @@ public class ChamadoControl implements Serializable {
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
     }
-    
 
     public ChamadoControl() {
         chamadoAtivo();
@@ -60,23 +59,19 @@ public class ChamadoControl implements Serializable {
         if (!mes.equals("")) {
             month = Integer.parseInt(mes);
         }
-        if (!ano.equals("")) {
-            year = Integer.parseInt(ano);
-        }
+        year = ano;
         File pdf = chamadoDaoImpl.gerarPdf(year, month, session);
         session.close();
 
     }
 
-    public void gerarExcel(String mes,String ano) throws IOException {
-         ChamadoDaoImpl chamadoDaoImpl = new ChamadoDaoImpl();
+    public void gerarExcel(String mes, String ano) throws IOException {
+        ChamadoDaoImpl chamadoDaoImpl = new ChamadoDaoImpl();
         session = HibernateUtil.abreConexao();
         if (!mes.equals("")) {
             month = Integer.parseInt(mes);
         }
-        if (!ano.equals("")) {
-            year = Integer.parseInt(ano);
-        }
+        year = ano;
         WritableWorkbook excel = chamadoDaoImpl.GerarExcel(year, month, session);
         session.close();
 

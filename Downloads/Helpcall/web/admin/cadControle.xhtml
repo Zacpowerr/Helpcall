@@ -25,7 +25,7 @@
                         <f:ajax event="blur" listener="#{macC.verificarMacUnico()}" /></p:inputText>
                 </div>
                 <div class="form-group mx-4">
-                    <h:selectOneMenu id="quarto"   value="#{macC.quarto.id}" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
+                    <h:selectOneMenu id="quarto" value="#{macC.quarto.id}" style="" styleClass="form-control form-control-lg" requiredMessage="Campo 'Quarto' obrigatório" >
                         <f:selectItem itemLabel="Selecione o nº do Quarto" itemValue=""/>
                         <f:selectItems value="#{macC.quartos}"  /> 
                     </h:selectOneMenu>

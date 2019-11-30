@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +41,10 @@ public class ReportGenerator {
         createDirectory();
     }
 
-    public File gerarPdf(Integer year, Integer month, Session session) throws IOException {
+    public File gerarPdf(String year, Integer month, Session session) throws IOException {
         Document doc = new Document();
         List<Chamado> listChamados = new ArrayList<>();
-        if (year != null) {
+        if (!year.equals("")) {
             listChamados = chamadoDaoImpl.listarPorAno(year, session);
         } else if (month != null) {
             listChamados = chamadoDaoImpl.listarPorMes(month, session);
@@ -78,7 +79,11 @@ public class ReportGenerator {
                 cell2 = new PdfPCell(new Paragraph(c.getMacId().getQuartoId().getQuarto()));
                 cell3 = new PdfPCell(new Paragraph(c.getMacId().getLeito()));
                 cell4 = new PdfPCell(new Paragraph(c.getHoraInit().toString()));
-                cell5 = new PdfPCell(new Paragraph(c.getHoraEnd().toString()));
+                if (c.getHoraEnd() == null) {
+                    cell5 = new PdfPCell(new Paragraph(""));
+                } else {
+                    cell5 = new PdfPCell(new Paragraph(c.getHoraEnd().toString()));
+                }
                 table.addCell(cell1);
                 table.addCell(cell2);
                 table.addCell(cell3);
@@ -95,9 +100,9 @@ public class ReportGenerator {
         return new File(arquivoPDF);
     }
 
-    public WritableWorkbook GerarExcel(Integer year, Integer month, Session session) {
+    public WritableWorkbook GerarExcel(String year, Integer month, Session session) {
         List<Chamado> listChamados = new ArrayList<>();
-        if (year != null) {
+        if (!year.equals("")) {
             listChamados = chamadoDaoImpl.listarPorAno(year, session);
         } else if (month != null) {
             listChamados = chamadoDaoImpl.listarPorMes(month, session);
@@ -138,7 +143,12 @@ public class ReportGenerator {
                 Label horainitl = new Label(coluna, linha, c.getHoraInit().toString());
                 sheet.addCell(horainitl);
                 coluna++;
-                Label horaendl = new Label(coluna, linha, c.getHoraEnd().toString());
+                Label horaendl;
+                if (c.getHoraEnd() == null) {
+                    horaendl = new Label(coluna, linha, "");
+                }else{
+                horaendl = new Label(coluna, linha, c.getHoraEnd().toString());
+                }
                 sheet.addCell(horaendl);
                 coluna++;
             }

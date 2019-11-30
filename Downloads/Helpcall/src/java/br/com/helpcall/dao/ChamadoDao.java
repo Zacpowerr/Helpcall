@@ -12,7 +12,7 @@ import org.hibernate.Session;
  */
 public interface ChamadoDao extends BaseDao<Chamado,Long>{
      public List<Chamado> listarPorMes(Integer month, Session session)throws HibernateException;
-     public List<Chamado> listarPorAno(Integer year, Session session)throws HibernateException;
+     public List<Chamado> listarPorAno(String year, Session session)throws HibernateException;
      public List<ChamadoAtivo> listarChamadoAtivo(Session session) throws HibernateException;
      public List<Chamado> listarTodos(Session session) throws HibernateException;
     
