@@ -7,8 +7,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="centro">
-        <p:poll interval="3000"   
-                listener="#{chamadoC.listChamadoAtivo()}" update="tables" /> 
+
 
         <h:panelGroup id="tables">
 
@@ -31,7 +30,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <ui:repeat value="#{chamadoC.listChamadoAtivo}" var="ativo">
+                                            <ui:repeat  id= "tablesAtivos" value="#{chamadoC.listChamadoAtivo}" var="ativo">
                                                 <h:panelGroup>
                                                     <tr>
                                                         <td>#{ativo.quartoId}</td>
@@ -40,6 +39,11 @@
                                                     </tr>
                                                 </h:panelGroup>
                                             </ui:repeat>
+                                            <p:poll interval="10"   
+                                                    listener="#{chamadoC.chamadoAtivo()}" update="@all" />    
+
+
+
                                         </tbody>
                                     </table>
                                 </div>

@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import jxl.write.WritableWorkbook;
 import org.hibernate.Session;
 
@@ -20,6 +21,7 @@ import org.hibernate.Session;
  * @author Eduardo Bastos
  */
 @ManagedBean(name = "chamadoC")
+@ViewScoped
 public class ChamadoControl implements Serializable {
 
     private ChamadoDao chamadoDao;
@@ -29,6 +31,16 @@ public class ChamadoControl implements Serializable {
     private String year;
     private Integer month;
     private String mensagem;
+
+    private int number;
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void increment() {
+        number++;
+    }
 
     public String getMensagem() {
         return mensagem;
@@ -43,7 +55,7 @@ public class ChamadoControl implements Serializable {
         mensagem = Mensagens.mensagemSalvamentoSucesso;
     }
 
-    private void chamadoAtivo() {
+    public void chamadoAtivo() {
         listChamadoAtivo = new ArrayList<>();
         chamadoDao = new ChamadoDaoImpl();
         session = HibernateUtil.abreConexao();
