@@ -19,10 +19,6 @@
         <h:outputStylesheet library="assets/vendor/fonts/fontawesome/css" name="fontawesome-all.css" />
         <h:outputStylesheet library="assets/vendor/bootstrap/css" name="bootstrap.min.css" />
         <h:outputStylesheet library="assets/vendor/fonts/circular-std" name="style.css" />
-        <!--        <link rel="stylesheet" href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"></link>
-                <link href="resources/assets/vendor/fonts/circular-std/style.css" rel="stylesheet"></link>
-                <link rel="stylesheet" href="resources/assets/libs/css/style.css"></link>
-                <link rel="stylesheet" href="resources/assets/vendor/fonts/fontawesome/css/fontawesome-all.css"/>-->
     </h:head>
 
     <h:body>
@@ -43,7 +39,6 @@
                         <ul class="navbar-nav ml-auto navbar-right-top">
                             <li class="nav-item dropdown nav-user">
                                 <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <!--<img src="assets/images/avatar-1.jpg" alt="" class="user-avatar-md rounded-circle" />-->
                                     <h:graphicImage library="assets/images" name="avatar.png"  class="user-avatar-md rounded-circle"/>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
@@ -53,7 +48,6 @@
                                         </h5>
                                     </div>
                                     <a class="dropdown-item" href="#{request.contextPath}/login.xhtml"><i class="fas fa-user mr-2"></i>Entrar</a>
-                                    <!--<a class="dropdown-item" href="#"><i class="fas fa-cog mr-2"></i>Setting</a>-->
                                     <a class="dropdown-item" href="HelpCall/logout"><i class="fas fa-power-off mr-2"></i>Sair</a>
                                 </div>
                             </li>
@@ -159,7 +153,7 @@
                                                                                         <p:commandLink class="nav-link" value="Outubro" action="#{chamadoC.gerarPdf('10','')}" />
                                                                                     </li>
                                                                                     <li class="nav-item">
-                                                                                        <p:commandLink class="nav-link" value="Novembro" action="#{chamadoC.gerarPdf('11','')}" />
+                                                                                        <p:commandLink class="nav-link" value="Novembro" action="#{chamadoC.gerarPdf('11','')}" onclick="alertFunc()"/>
                                                                                     </li>
                                                                                     <li class="nav-item">
                                                                                         <p:commandLink class="nav-link" value="Dezembro" action="#{chamadoC.gerarPdf('12','')}" />
@@ -315,12 +309,21 @@
         <h:outputScript library="assets/vendor/slimscroll" name="jquery.slimscroll.js" />
         <h:outputScript library="assets/libs/js" name="main-js.js" />
 
+        <script>
+            function alerts() {
+                var error = #{chamadoC.error}
 
-        <!--
-                        <script src="../resources/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-                        <script src="../resources/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-                        <script src="../resources/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
-                        <script src="../resources/assets/libs/js/main-js.js"></script>-->
+                if (error) {
+                    alert('Ocorreu um erro no download');
+                } else {
+                    alert('Download efetuado com sucesso');
+                }
+            }
+            function alertFunc() {
+                setTimeout(alerts(), 5000);
+            }
+
+        </script>
 
     </h:body>
 

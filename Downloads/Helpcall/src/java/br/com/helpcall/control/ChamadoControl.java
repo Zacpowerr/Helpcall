@@ -5,7 +5,6 @@ import br.com.helpcall.dao.HibernateUtil;
 import br.com.helpcall.daoImpl.ChamadoDaoImpl;
 import br.com.helpcall.model.Chamado;
 import br.com.helpcall.model.ChamadoAtivo;
-import br.com.helpcall.util.Mensagens;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -30,32 +29,22 @@ public class ChamadoControl implements Serializable {
     private List<Chamado> listTodos;
     private String year;
     private Integer month;
-    private String mensagem;
-
-    private int number;
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void increment() {
-        number++;
-    }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
+    private boolean error;
 
     public ChamadoControl() {
         chamadoAtivo();
-        mensagem = Mensagens.mensagemSalvamentoSucesso;
+
     }
 
-    public void chamadoAtivo() {
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    public final void chamadoAtivo() {
         listChamadoAtivo = new ArrayList<>();
         chamadoDao = new ChamadoDaoImpl();
         session = HibernateUtil.abreConexao();
@@ -73,6 +62,8 @@ public class ChamadoControl implements Serializable {
         }
         year = ano;
         File pdf = chamadoDaoImpl.gerarPdf(year, month, session);
+        error = !pdf.canRead();
+
         session.close();
 
     }
