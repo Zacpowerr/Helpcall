@@ -36,6 +36,8 @@ public class UsuarioLogadoControl implements Serializable {
             usuario = usuarioDao.pesquisarPorLogin(login, session);
         } catch (HibernateException e) {
             System.out.println("Erro ao pesquisar por Login");
+        } finally {
+            session.close();
         }
     }
 

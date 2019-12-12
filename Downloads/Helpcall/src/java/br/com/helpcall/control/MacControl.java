@@ -58,22 +58,23 @@ public class MacControl implements Serializable {
         return mac;
     }
 
-        public String editar() {
+    public void editar() {
         session = HibernateUtil.abreConexao();
         mac.setQuartoId(quarto);
         try {
             if (verifLocalMAC() && verifLimite(quarto.getId(), session)) {
                 macDao.salvarOuAlterar(mac, session);
+                Mensagens.salvoComSucesso();
+//                return "/gestor/listaControles.xhtml?faces-redirect=true";
             }
         } catch (HibernateException e) {
             System.out.println("Erro ao editar " + e.getMessage());
-            
+
         } finally {
             session.close();
         }
         listar();
-        Mensagens.salvoComSucesso();
-        return "/gestor/listaControles.xhtml?faces-redirect=true";
+//        return "";
     }
 
     public String salvar() {
@@ -148,7 +149,6 @@ public class MacControl implements Serializable {
         return true;
 
     }
-    
 
     public boolean verifLimite(Long quartoId, Session session) {
         macDao = new MacDaoImpl();
@@ -187,9 +187,6 @@ public class MacControl implements Serializable {
         }
     }
 
-
-    
-    
 //    getter e setter
     public void setMac(Mac mac) {
         this.mac = mac;

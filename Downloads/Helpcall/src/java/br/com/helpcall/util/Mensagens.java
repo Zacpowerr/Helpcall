@@ -22,6 +22,7 @@ public class Mensagens {
     public static final String mensagemErroSalvamento = "Ocorreu um erro ao salvar!";
     public static final String mensagemErroCadLocalControle = "No local informado já existe controle cadastrado";
     public static final String mensagemErroSenhasDiferentes = "As senhas não são iguais";
+    public static final String mensagemEnvioEmail = "Email enviado com sucesso";
 
     public static void salvoComSucesso() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -61,5 +62,9 @@ public class Mensagens {
     public static void erroSenhasDiferentes() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagemErroSenhasDiferentes, ""));
+    }
+    public static void emailEnviado(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagemEnvioEmail, ""));
     }
 }

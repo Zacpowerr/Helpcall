@@ -29,12 +29,12 @@
     <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
         <!-- Conexao pc eduardo 
         <b:property name="url" value="jdbc:mysql://192.168.0.6:3306/helpcall" />
-        <b:property name="username" value="helpcall" />
-        <b:property name="password" value="teste" />-->
+-->        <b:property name="username" value="helpcall" />
+        <b:property name="password" value="teste" />
         <b:property name="url" value="jdbc:mysql://localhost:3306/helpcall" />
         <b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <b:property name="username" value="root" />
-        <b:property name="password" value="" />
+        <!--        <b:property name="username" value="root" />
+        <b:property name="password" value="" />-->
     </b:bean>
  
  

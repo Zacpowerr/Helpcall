@@ -8,8 +8,8 @@
 
     <ui:define name="centro">
 
-
         <h:panelGroup id="tables">
+
 
             <div class="dashboard-wrapper">
                 <div class="container-fluid dashboard-content">
@@ -17,7 +17,7 @@
                     <!-- ============================================================== -->
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 
-                        <div class="card" style="width:100%;">
+                        <div  id="tabela" class="card" style="width:100%;">
                             <h5 class="card-header">Tabela de Chamados Ativos</h5>
                             <div class="card-body">
                                 <div class="table-responsive ">
@@ -30,7 +30,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <ui:repeat  id= "tablesAtivos" value="#{chamadoC.listChamadoAtivo}" var="ativo">
+                                            <ui:repeat value="#{chamadoC.listChamadoAtivo}" var="ativo">
                                                 <h:panelGroup>
                                                     <tr>
                                                         <td>#{ativo.quartoId}</td>
@@ -39,12 +39,6 @@
                                                     </tr>
                                                 </h:panelGroup>
                                             </ui:repeat>
-<!--                                            Descomentar para fazer o atualizar a lista automaticamente
-<p:poll interval="40"   
-                                                    listener="# {chamadoC.chamadoAtivo()}" update="@all" />    -->
-
-
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -97,7 +91,8 @@
                 </div>
             </div>
 
-
+            <p:poll interval="10"   
+                    listener="#{chamadoC.chamadoAtivo()}" update="tables" /> 
         </h:panelGroup>
     </ui:define>
     <ui:define name="css">

@@ -109,6 +109,7 @@ public class UsuarioControl implements Serializable {
             } else {
                 usuario.setEnable(true);
             }
+            usuarioDao.salvarOuAlterar(usuario, session);
         } catch (HibernateException e) {
             System.out.println("Erro ao desAtivar " + e.getMessage());
         } finally {

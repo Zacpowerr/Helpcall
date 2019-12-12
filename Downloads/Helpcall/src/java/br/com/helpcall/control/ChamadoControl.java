@@ -51,6 +51,7 @@ public class ChamadoControl implements Serializable {
         listChamadoAtivo = chamadoDao.listarChamadoAtivo(session);
         listTodos = chamadoDao.listarTodos(session);
         session.flush();
+//        session.close();
     }
 //Metodos de geracao de docs 
 

@@ -6,6 +6,7 @@
 package br.com.helpcall.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -123,5 +124,9 @@ public class Chamado implements Serializable {
     public String toString() {
         return "br.com.helpcall.model.Chamado[ id=" + id + " ]";
     }
-    
+
+    public String dateFormatter(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+        return dateFormat.format(date);
+    }
 }

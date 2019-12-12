@@ -5,10 +5,8 @@
  */
 package br.com.helpcall.daoImpl;
 
-import br.com.helpcall.dao.HibernateUtil;
 import br.com.helpcall.dao.MacDao;
 import br.com.helpcall.model.Mac;
-import br.com.helpcall.model.Quarto;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -35,7 +33,7 @@ public class MacDaoImpl extends BaseDaoImpl<Mac, String> implements MacDao {
 
     @Override
     public boolean listarPorLeito(Mac mac, Session session) {
-        Query consulta = session.createQuery("from Mac m where m.quartoId.id =:idQuarto and leito=:leito and status=1");
+        Query consulta = session.createQuery("from Mac m where m.quartoId.id =:idQuarto and m.leito=:leito and m.status='1'");
         consulta.setParameter("idQuarto", mac.getQuartoId().getId());
         consulta.setParameter("leito", mac.getLeito());
         Mac mac2 = (Mac) consulta.uniqueResult();
